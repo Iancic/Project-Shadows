@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     public Camera playerCamera;
     private CharacterController controller;
     private Animator animator;
+    public AudioSource footSteps;
 
     //Movement Speed
-    public float speed = 5.0f;
+    public float speed = 7.0f;
 
     //Player Logic
     public int hitPoints = 10;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
             Instance = this;
         }
 
+        footSteps = gameObject.GetComponent<AudioSource>();
         controller = gameObject.GetComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
     }
@@ -53,9 +55,11 @@ public class PlayerController : MonoBehaviour
             Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
             controller.Move(move * Time.deltaTime * speed);
             animator.SetBool("isRunning", true);
+            footSteps.enabled = true;
         }
         else
         {
+            footSteps.enabled = false;
             animator.SetBool("isRunning", false);
         }
          

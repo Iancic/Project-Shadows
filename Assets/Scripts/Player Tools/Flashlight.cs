@@ -9,7 +9,6 @@ public class Flashlight : MonoBehaviour
 
     public GameObject SpotLight;
 
-
     public static Flashlight Instance { get; private set; }
 
     private void Awake()
@@ -22,6 +21,7 @@ public class Flashlight : MonoBehaviour
         {
             Instance = this;
         }
+
     }
 
     private void Start()
@@ -32,8 +32,12 @@ public class Flashlight : MonoBehaviour
     void Update()
     {
         if (isOn)
+        {
             SpotLight.SetActive(true);
+        }
         else
+        {
             SpotLight.SetActive(false);
+        }
     }
 }

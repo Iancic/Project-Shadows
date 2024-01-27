@@ -1,20 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class ShootBullet : MonoBehaviour
 {
-    public GameObject bulletPrefab; // Reference to the bullet prefab
-    public Transform bulletSpawnPoint; // The point from which the bullet will be instantiated
-    public float bulletSpeed = 20f; // Speed of the bullet
+    //Components
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public ParticleSystem muzzle;
+    public AudioSource bulletSound;
 
+    //Gun Logic
+    public float bulletSpeed = 20f;
     public int maxAmmo = 16, currentAmmo;
-
     public int reloadTime = 3;
 
-    public ParticleSystem muzzle;
-
+    //Tool Selection
     public bool isSelected = true;
 
     public static ShootBullet Instance { get; private set; }
@@ -29,10 +29,8 @@ public class ShootBullet : MonoBehaviour
         {
             Instance = this;
         }
-    }
 
-    private void Start()
-    {
+        bulletSound = gameObject.GetComponent<AudioSource>();
         currentAmmo = maxAmmo;
     }
 
@@ -45,11 +43,11 @@ public class ShootBullet : MonoBehaviour
 
         if (isSelected)
         {
-            // Check if the left mouse button is pressed to shoot
             if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
             {
+                bulletSound.Play();
+
                 currentAmmo = currentAmmo - 1;
-                // Instantiate the bullet
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 muzzle.Play();
 
