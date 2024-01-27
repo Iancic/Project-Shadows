@@ -476,3 +476,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpotLight: {fileID: 846110492633743201}
+  bulbMetal: {fileID: 4682353855292726916}
+  rotSpeed: 1

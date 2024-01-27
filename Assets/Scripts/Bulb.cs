@@ -4,10 +4,19 @@ using UnityEngine;
 public class Bulb : MonoBehaviour
 {
     public GameObject SpotLight;
+    public GameObject bulbMetal;
+
+    public float rotSpeed;
 
     void Start()
     {
+        rotSpeed = Random.Range(10f, 20f);
         StartCoroutine(Flicker());
+    }
+
+    private void Update()
+    {
+        bulbMetal.transform.Rotate(new Vector3(0, rotSpeed * Time.deltaTime, 0));
     }
 
     public IEnumerator Flicker()
