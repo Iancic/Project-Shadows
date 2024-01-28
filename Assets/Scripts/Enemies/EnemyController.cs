@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     public GameObject drop;
 
     //Movement Speed
-    public float speed = 5f, rotationSpeed = 5f;
+    private float speed = 6.5f, rotationSpeed = 6.5f;
 
     //Logic
     private int hitPoints = 1;
@@ -24,8 +24,9 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (alive)
+        if (alive && PlayerController.Instance.isImmune == false)
         {
+            zombieAnimator.SetBool("isRunning", true);
             // Move towards the player
             Vector3 directionToPlayer = player.position - transform.position;
             Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
@@ -38,6 +39,8 @@ public class EnemyController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
             }
         }
+        else
+            zombieAnimator.SetBool("isRunning", false);
 
         if (hitPoints <= 0)
         {

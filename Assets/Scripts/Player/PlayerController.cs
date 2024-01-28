@@ -11,10 +11,11 @@ public class PlayerController : MonoBehaviour
     public AudioSource footSteps;
 
     //Movement Speed
-    public float speed = 7.0f;
+    private float speed = 7.0f;
 
     //Player Logic
     public int hitPoints = 10;
+    public bool isImmune = false;
 
     //XP
     public int currentXP = 0, maxXP = 10;
@@ -87,6 +88,26 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             batteryCurrent += 1.5f;
+        }
+    }
+
+
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Light"))
+        {
+            if (collision.gameObject.GetComponent<Bulb>().isOn == true)
+                isImmune = true;
+            else
+                isImmune = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Light"))
+        {
+            isImmune = false;
         }
     }
 }

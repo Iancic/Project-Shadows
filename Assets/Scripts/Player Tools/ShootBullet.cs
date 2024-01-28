@@ -11,7 +11,7 @@ public class ShootBullet : MonoBehaviour
 
     //Gun Logic
     public float bulletSpeed = 20f;
-    public int maxAmmo = 16, currentAmmo;
+    public int maxAmmo = 16, currentAmmo = 16;
     public int reloadTime = 3;
 
     //Tool Selection
@@ -31,7 +31,6 @@ public class ShootBullet : MonoBehaviour
         }
 
         bulletSound = gameObject.GetComponent<AudioSource>();
-        currentAmmo = maxAmmo;
     }
 
     void Update()

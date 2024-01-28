@@ -8,6 +8,8 @@ public class Bulb : MonoBehaviour
 
     public float rotSpeed;
 
+    public bool isOn;
+
     void Start()
     {
         rotSpeed = Random.Range(10f, 20f);
@@ -21,10 +23,12 @@ public class Bulb : MonoBehaviour
 
     public IEnumerator Flicker()
     {
-        while (true) {
-        SpotLight.SetActive(true);
+        while (true){
+        isOn = true;
+        SpotLight.SetActive(isOn);
         yield return new WaitForSeconds(10f); //For how much the bulb is on
-        SpotLight.SetActive(false);
+        isOn = false;
+        SpotLight.SetActive(isOn);
         yield return new WaitForSeconds(Random.Range(3f, 8f)); //For how much the bulb is off
         }
     }
