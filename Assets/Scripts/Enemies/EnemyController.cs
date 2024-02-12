@@ -7,7 +7,8 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public ParticleSystem blood;
     private Animator zombieAnimator;
-    public GameObject drop;
+    public GameObject ammo;
+    public GameObject battery;
 
     //Movement Speed
     private float speed = 6.5f, rotationSpeed = 6.5f;
@@ -61,9 +62,14 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator ZombieDeath()
     {
+        int n = Random.Range(0, 1);
+        if (n == 0)
+            Instantiate(ammo, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+        else if (n == 1)
+            Instantiate(battery, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+
         zombieAnimator.SetBool("isDead", true);
         yield return new WaitForSeconds(4);
         Destroy(this.gameObject);
-        Instantiate(drop, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
     }
 }

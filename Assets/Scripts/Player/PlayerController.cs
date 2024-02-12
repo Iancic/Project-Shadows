@@ -84,10 +84,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Drop"))
+        if (collision.gameObject.CompareTag("Battery"))
         {
             Destroy(collision.gameObject);
             batteryCurrent += 1.5f;
+        }
+
+        else if (collision.gameObject.CompareTag("Ammo"))
+        {
+            Destroy(collision.gameObject);
         }
     }
 

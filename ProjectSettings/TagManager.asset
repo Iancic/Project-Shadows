@@ -9,6 +9,8 @@ TagManager:
   - Drop
   - Flashlight
   - Light
+  - Ammo
+  - Battery
   layers:
   - Default
   - TransparentFX

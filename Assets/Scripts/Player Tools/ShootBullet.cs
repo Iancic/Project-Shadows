@@ -17,6 +17,7 @@ public class ShootBullet : MonoBehaviour
     //Tool Selection
     public bool isSelected = true;
 
+    public GameObject flashObject; //LIGHT 
     public static ShootBullet Instance { get; private set; }
 
     private void Awake()
@@ -44,6 +45,7 @@ public class ShootBullet : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
             {
+                StartCoroutine(Flash());
                 bulletSound.Play();
 
                 currentAmmo = currentAmmo - 1;
@@ -65,5 +67,12 @@ public class ShootBullet : MonoBehaviour
     {
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
+    }
+
+    public IEnumerator Flash()
+    {
+        flashObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        flashObject.SetActive(false);
     }
 }
