@@ -11,8 +11,6 @@ public class ShootBullet : MonoBehaviour
 
     //Gun Logic
     public float bulletSpeed = 20f;
-    public int maxAmmo = 16, currentAmmo = 16;
-    public int reloadTime = 3;
 
     //Tool Selection
     public bool isSelected = true;
@@ -36,19 +34,15 @@ public class ShootBullet : MonoBehaviour
 
     void Update()
     {
-        if (currentAmmo <= 0)
-        {
-            StartCoroutine(Reload());
-        }
 
         if (isSelected)
         {
-            if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
+            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.currentAmmo > 0)
             {
                 StartCoroutine(Flash());
                 bulletSound.Play();
 
-                currentAmmo = currentAmmo - 1;
+                PlayerController.Instance.currentAmmo = PlayerController.Instance.currentAmmo - 1;
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 muzzle.Play();
 
@@ -61,12 +55,6 @@ public class ShootBullet : MonoBehaviour
                 }
             }
         }
-    }
-
-    public IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(reloadTime);
-        currentAmmo = maxAmmo;
     }
 
     public IEnumerator Flash()

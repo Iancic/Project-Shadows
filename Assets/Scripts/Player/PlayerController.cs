@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     //Battery
     public float batteryMax = 10.00f, batteryCurrent = 10.00f;
+    public int currentAmmo = 3, currentFuel = 0;
 
     public static PlayerController Instance { get; private set; }
 
@@ -84,13 +85,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Battery"))
+        if (collision.gameObject.CompareTag("Battery") && Input.GetKeyDown(KeyCode.E))
         {
             Destroy(collision.gameObject);
             batteryCurrent += 1.5f;
         }
 
-        else if (collision.gameObject.CompareTag("Ammo"))
+        else if (collision.gameObject.CompareTag("Ammo") && Input.GetKeyDown(KeyCode.E))
         {
             Destroy(collision.gameObject);
         }

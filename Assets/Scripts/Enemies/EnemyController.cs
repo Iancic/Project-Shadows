@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     public GameObject battery;
 
     //Movement Speed
-    private float speed = 6.5f, rotationSpeed = 6.5f;
+    private float speed = 4f, rotationSpeed = 6.5f;
 
     //Logic
     private int hitPoints = 1;
@@ -62,14 +62,9 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator ZombieDeath()
     {
-        int n = Random.Range(0, 1);
-        if (n == 0)
-            Instantiate(ammo, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
-        else if (n == 1)
-            Instantiate(battery, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
-
         zombieAnimator.SetBool("isDead", true);
         yield return new WaitForSeconds(4);
+        Instantiate(battery, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

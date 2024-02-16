@@ -13,6 +13,6 @@ public class Ammo : MonoBehaviour
 
     void Update()
     {
-        text.SetText(ShootBullet.Instance.currentAmmo.ToString() + "/" + ShootBullet.Instance.maxAmmo.ToString());
+        text.SetText(PlayerController.Instance.currentAmmo.ToString());
     }
 }
