@@ -21,15 +21,19 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < maxZombies)
+        if (Generator.Instance.canSpawn == true)
         {
-            SpawnZombie();
-            timer = spawnInterval;
+            if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < maxZombies)
+            {
+                SpawnZombie();
+                timer = spawnInterval;
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
         }
-        else
-        {
-            timer -= Time.deltaTime;
-        }
+
     }
 
     public void SpawnZombie()

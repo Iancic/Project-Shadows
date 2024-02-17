@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     public GameObject battery;
 
     //Movement Speed
-    private float speed = 4f, rotationSpeed = 6.5f;
+    private float speed = 6f, rotationSpeed = 6.5f;
 
     //Logic
     private int hitPoints = 1;

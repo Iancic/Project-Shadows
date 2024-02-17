@@ -11,6 +11,9 @@ TagManager:
   - Light
   - Ammo
   - Battery
+  - Fuel
+  - Transformer
+  - Logs
   layers:
   - Default
   - TransparentFX
