@@ -5,7 +5,9 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     public GameObject lights;
-    public float fuelMax = 30.00f, fuelCurrent = 30.00f;
+    public AudioSource factorySounds;
+    public AudioSource outTage;
+    public float fuelMax = 60.00f, fuelCurrent = 60.00f;
 
     public bool canSpawn;
 
@@ -35,6 +37,8 @@ public class Generator : MonoBehaviour
         {
             canSpawn = true;
             lights.SetActive(false);
+            factorySounds.Pause();
+            outTage.Play();
         }
     }
 }

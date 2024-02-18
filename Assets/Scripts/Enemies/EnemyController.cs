@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     private Animator zombieAnimator;
     public GameObject ammo;
     public GameObject battery;
+    public AudioSource breathing;
 
     //Movement Speed
     private float speed = 6f, rotationSpeed = 6.5f;
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         zombieAnimator = gameObject.GetComponent<Animator>();
+        breathing = gameObject.GetComponent<AudioSource>();
+        breathing.Play();
     }
 
     void Update()

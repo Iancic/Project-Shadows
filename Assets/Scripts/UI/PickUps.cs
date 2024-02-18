@@ -32,6 +32,13 @@ public class PickUps : MonoBehaviour
             else
                 text.SetActive(false);
         }
+        else if (this.gameObject.CompareTag("Generator") && player.GetComponent<PlayerController>().currentFuel > 0)
+        {
+            if (distance < 4f)
+                text.SetActive(true);
+            else
+                text.SetActive(false);
+        }
         else
         {
             if (distance < 3.5f)
@@ -73,6 +80,13 @@ public class PickUps : MonoBehaviour
             else if (this.gameObject.CompareTag("Transformer") && distance < 5f && player.GetComponent<PlayerController>().isCarrying)
             {
                 player.GetComponent<PlayerController>().isCarrying = false;
+                pickupSound.Play();
+            }
+
+            else if (this.gameObject.CompareTag("Generator") && distance < 4f && player.GetComponent<PlayerController>().currentFuel > 0)
+            {
+                Generator.Instance.fuelCurrent += 30f;
+                player.GetComponent<PlayerController>().currentFuel -= 1;
                 pickupSound.Play();
             }
 
