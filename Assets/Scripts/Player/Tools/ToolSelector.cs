@@ -21,6 +21,7 @@ public class ToolSelector : MonoBehaviour
             {
                 flashlightClick.Play();
                 ShootBullet.Instance.isSelected = true;
+                PlayerController.Instance.isImmune = false;
                 Flashlight.Instance.isOn = false;
             }
             else

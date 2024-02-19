@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     public AudioSource breathing;
 
     //Movement Speed
-    private float speed = 6f, rotationSpeed = 6.5f;
+    private float speed = 3.8f, rotationSpeed = 7f;
 
     //Logic
     private int hitPoints = 1;
@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         zombieAnimator = gameObject.GetComponent<Animator>();
         breathing = gameObject.GetComponent<AudioSource>();
+        breathing.pitch = Random.Range(0.6f, 1f);
         breathing.Play();
     }
 
@@ -30,7 +31,8 @@ public class EnemyController : MonoBehaviour
     {
         if (alive && PlayerController.Instance.isImmune == false)
         {
-            zombieAnimator.SetBool("isRunning", true);
+            breathing.mute = false;
+            zombieAnimator.speed = 1f;
             // Move towards the player
             Vector3 directionToPlayer = player.position - transform.position;
             Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
@@ -44,7 +46,10 @@ public class EnemyController : MonoBehaviour
             }
         }
         else
-            zombieAnimator.SetBool("isRunning", false);
+        {
+            breathing.mute = true;
+            zombieAnimator.speed = 0f;
+        }
 
         if (hitPoints <= 0)
         {
@@ -61,10 +66,24 @@ public class EnemyController : MonoBehaviour
             blood.Play();
             hitPoints = hitPoints - 1;
         }
+
+        if (collision.gameObject.tag == "Light")
+        {
+            PlayerController.Instance.isImmune = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Light"))
+        {
+            PlayerController.Instance.isImmune = false;
+        }
     }
 
     public IEnumerator ZombieDeath()
     {
+        zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);
         yield return new WaitForSeconds(4);
         Instantiate(battery, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);

@@ -10,6 +10,7 @@ public class Generator : MonoBehaviour
     public float fuelMax = 60.00f, fuelCurrent = 60.00f;
 
     public bool canSpawn;
+    private bool goneOut = true;
 
     public static Generator Instance { get; private set; }
 
@@ -27,8 +28,16 @@ public class Generator : MonoBehaviour
 
     void Update()
     {
+
+        if (fuelCurrent <= 0f && goneOut == false)
+        {
+            outTage.Play();
+            goneOut = true;
+        }
+
         if (fuelCurrent > 0f)
         {
+            goneOut = false;
             canSpawn = false;
             lights.SetActive(true);
             fuelCurrent -= Time.deltaTime;
@@ -38,7 +47,7 @@ public class Generator : MonoBehaviour
             canSpawn = true;
             lights.SetActive(false);
             factorySounds.Pause();
-            outTage.Play();
         }
+
     }
 }
