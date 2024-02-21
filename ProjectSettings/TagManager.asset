@@ -15,6 +15,7 @@ TagManager:
   - Transformer
   - Logs
   - Generator
+  - Enemy
   layers:
   - Default
   - TransparentFX

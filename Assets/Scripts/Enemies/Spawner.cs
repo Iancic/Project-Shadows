@@ -7,9 +7,9 @@ public class Spawner : MonoBehaviour
     public Transform playerTransform;
 
     //Spawn Radius
-    private float spawnRadius = 20f, safeZoneRadius = 15f;
+    private float spawnRadius = 35f, safeZoneRadius = 25f;
     private int maxZombies = 10;
-    private float spawnInterval = 2f;
+    private float spawnInterval = 3.5f;
 
     private float timer;
 

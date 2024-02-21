@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33575185462689696}
   - component: {fileID: 23758206603601828}
   - component: {fileID: 1626278002309301922}
+  - component: {fileID: 28677147842208049}
   - component: {fileID: 8222529593440949816}
   m_Layer: 0
   m_Name: Ammo
@@ -101,6 +102,25 @@ MonoBehaviour:
   text: {fileID: 1757514065163743395}
   player: {fileID: 0}
   pickupSound: {fileID: 8222529593440949816}
+  outlineScript: {fileID: 28677147842208049}
+--- !u!114 &28677147842208049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348129525861204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!82 &8222529593440949816
 AudioSource:
   m_ObjectHideFlags: 0

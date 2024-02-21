@@ -7120,7 +7120,7 @@ GameObject:
   - component: {fileID: 64937232399643120}
   m_Layer: 0
   m_Name: Shadow
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7134,7 +7134,7 @@ Transform:
   m_GameObject: {fileID: 9157719476774926181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.56, y: 0.00000047683716, z: 1.8328873}
-  m_LocalScale: {x: 3.8, y: 3.8, z: 3.8}
+  m_LocalScale: {x: 4.1, y: 4.1, z: 4.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5653429553317953366}
@@ -7228,8 +7228,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.57239234, y: 1.4838384, z: 0.52124256}
-  m_Center: {x: 0.07081158, y: 0.7215183, z: 0.1285969}
+  m_Size: {x: 1.1708536, y: 1.682654, z: 1.0702504}
+  m_Center: {x: 0.015679453, y: 0.8209262, z: 0.08735686}
 --- !u!82 &64937232399643120
 AudioSource:
   m_ObjectHideFlags: 0

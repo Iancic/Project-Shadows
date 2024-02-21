@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource footSteps;
 
     //Movement Speed
-    private float speed = 8f;
+    private float speed = 5f;
 
     //Player Logic
     public int hitPoints = 10;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public int level = 1;
 
     //Battery
-    public float batteryMax = 30.00f, batteryCurrent = 30.00f;
+    public float batteryMax = 20.00f, batteryCurrent = 20.00f;
     public int currentAmmo = 3, currentFuel = 0;
 
     public MeshRenderer log;
@@ -52,13 +52,13 @@ public class PlayerController : MonoBehaviour
         //Carrying
         if (isCarrying)
         {
-            speed = 5f;
+            speed = 4f;
             gun.enabled = false;
             log.enabled = true;
         }
         else
         {
-            speed = 8f;
+            speed = 5f;
             gun.enabled = true;
             log.enabled = false;
         }

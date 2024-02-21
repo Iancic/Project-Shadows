@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     public AudioSource breathing;
 
     //Movement Speed
-    private float speed = 3.8f, rotationSpeed = 7f;
+    private float speed = 4.5f, rotationSpeed = 8f;
 
     //Logic
     private int hitPoints = 1;

@@ -40,7 +40,8 @@ public class Generator : MonoBehaviour
             goneOut = false;
             canSpawn = false;
             lights.SetActive(true);
-            fuelCurrent -= Time.deltaTime;
+            fuelCurrent -= Time.deltaTime; 
+            factorySounds.UnPause();
         }
         else
         {

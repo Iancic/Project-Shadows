@@ -13,6 +13,8 @@ public class PickUps : MonoBehaviour
 
     public AudioSource pickupSound;
 
+    public Outline outlineScript;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -28,23 +30,41 @@ public class PickUps : MonoBehaviour
         if (this.gameObject.CompareTag("Logs") || this.gameObject.CompareTag("Transformer"))
         {
             if (distance < 5f)
+            {
+                outlineScript.enabled = true;
                 text.SetActive(true);
+            }
             else
+            {
+                outlineScript.enabled = false;
                 text.SetActive(false);
+            }
         }
         else if (this.gameObject.CompareTag("Generator") && player.GetComponent<PlayerController>().currentFuel > 0)
         {
             if (distance < 4f)
+            {
+                outlineScript.enabled = true;
                 text.SetActive(true);
+            }
             else
+            {
+                outlineScript.enabled = false;
                 text.SetActive(false);
+            }
         }
         else
         {
             if (distance < 3.5f)
+            {
+                outlineScript.enabled = true;
                 text.SetActive(true);
+            }
             else
+            {
+                outlineScript.enabled = false;
                 text.SetActive(false);
+            }
         }
 
         //Interaction
@@ -85,11 +105,22 @@ public class PickUps : MonoBehaviour
 
             else if (this.gameObject.CompareTag("Generator") && distance < 4f && player.GetComponent<PlayerController>().currentFuel > 0)
             {
+                DestroyEnemies();
                 Generator.Instance.fuelCurrent += 30f;
                 player.GetComponent<PlayerController>().currentFuel -= 1;
                 pickupSound.Play();
             }
 
+        }
+    }
+
+    public void DestroyEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
         }
     }
 }

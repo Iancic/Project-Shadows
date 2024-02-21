@@ -31,6 +31,14 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
+        if (PlayerController.Instance.batteryCurrent < 0)
+        {
+            isOn = false;
+            ShootBullet.Instance.isSelected = true;
+            PlayerController.Instance.isImmune = false;
+        }    
+
+
         if (isOn)
         {
             SpotLight.SetActive(true);
