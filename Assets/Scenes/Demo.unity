@@ -2818,7 +2818,7 @@ Transform:
   m_GameObject: {fileID: 455454541}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 1, z: 15}
+  m_LocalScale: {x: 15, y: 1, z: 19.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1473276735}
@@ -14333,7 +14333,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8f410b7816e25624b933743c29927454, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 92993616111fb264eb97de08ff6218af, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -22211,7 +22211,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8f410b7816e25624b933743c29927454, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3b42033e06e32994b875d34f3335e587, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -24957,7 +24957,7 @@ MonoBehaviour:
   factorySounds: {fileID: 485343917}
   outTage: {fileID: 1723107581}
   fuelMax: 60
-  fuelCurrent: 3
+  fuelCurrent: 10
   canSpawn: 0
 --- !u!82 &1723107581
 AudioSource:
@@ -26592,7 +26592,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8f410b7816e25624b933743c29927454, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3b42033e06e32994b875d34f3335e587, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -26915,7 +26915,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8962264, g: 0.88658243, b: 0.58762014, a: 1}
-  m_Intensity: 24
+  m_Intensity: 10.97
   m_Range: 20
   m_SpotAngle: 130
   m_InnerSpotAngle: 1
@@ -28232,7 +28232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3329100552054084068}
   m_LocalRotation: {x: 0, y: 0.15341699, z: 0, w: 0.9881616}
-  m_LocalPosition: {x: -25.1, y: 0, z: -57.6}
+  m_LocalPosition: {x: -27.99, y: 0, z: -66.68}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28827,7 +28827,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 81ad971a363cffe4ab8f79af55c9f04a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: df671b7aa4fb917408e1afb4c4b1cd23, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.908
   m_Pitch: 1

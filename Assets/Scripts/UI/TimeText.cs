@@ -22,7 +22,7 @@ public class TimeText : MonoBehaviour
         else if (minutestext > 10)
             text.SetText(hour.ToString() + ":" + Mathf.RoundToInt(minutestext).ToString());
 
-        if (minutestext == 60)
+        if (minutestext >= 60f)
         {
             hour++;
             minutestext = 0f;
