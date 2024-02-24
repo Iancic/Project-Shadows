@@ -7,8 +7,7 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public ParticleSystem blood;
     private Animator zombieAnimator;
-    public GameObject ammo;
-    public GameObject battery;
+    public GameObject fuel;
     public AudioSource breathing;
 
     //Movement Speed
@@ -17,6 +16,7 @@ public class EnemyController : MonoBehaviour
     //Logic
     private int hitPoints = 1;
     public bool alive = true;
+    public bool isStunned = false;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (alive && PlayerController.Instance.isImmune == false)
+        if (alive && PlayerController.Instance.isImmune == false && isStunned == false)
         {
             breathing.mute = false;
             zombieAnimator.speed = 1f;
@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviour
 
         if (collision.gameObject.tag == "Light")
         {
-            PlayerController.Instance.isImmune = true;
+            isStunned = true;
         }
     }
 
@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Light"))
         {
-            PlayerController.Instance.isImmune = false;
+            isStunned = false;
         }
     }
 
@@ -85,8 +85,7 @@ public class EnemyController : MonoBehaviour
     {
         zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);
-        yield return new WaitForSeconds(4);
-        Instantiate(battery, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+        yield return new WaitForSeconds(90);
         Destroy(this.gameObject);
     }
 }

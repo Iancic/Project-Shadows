@@ -11,6 +11,9 @@ public class GeneratorText : MonoBehaviour
 
     void Update()
     {
-        text.SetText((Mathf.Round(Generator.Instance.fuelCurrent * 100) / 100).ToString() + " of light");
+        if (Generator.Instance.goneOut == false)
+            text.SetText((Mathf.Round(Generator.Instance.fuelCurrent * 100) / 100).ToString() + " of light");
+        else if (Generator.Instance.goneOut == true)
+            text.SetText((Generator.Instance.fuelMax - (Mathf.Round(Generator.Instance.fuelCurrent * 100) / 100)).ToString() + " until recharge");
     }
 }

@@ -16,6 +16,8 @@ TagManager:
   - Logs
   - Generator
   - Enemy
+  - Body
+  - Bulb
   layers:
   - Default
   - TransparentFX

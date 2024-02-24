@@ -7,10 +7,10 @@ public class Generator : MonoBehaviour
     public GameObject lights;
     public AudioSource factorySounds;
     public AudioSource outTage;
-    public float fuelMax = 60.00f, fuelCurrent = 60.00f;
+    public float fuelMax = 60.00f, fuelCurrent = 10.00f;
 
     public bool canSpawn;
-    private bool goneOut = true;
+    public bool goneOut = false;
 
     public static Generator Instance { get; private set; }
 
@@ -34,19 +34,31 @@ public class Generator : MonoBehaviour
             outTage.Play();
             goneOut = true;
         }
-
-        if (fuelCurrent > 0f)
+        else if (fuelCurrent >= fuelMax && goneOut == true)
         {
             goneOut = false;
+
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (GameObject enemy in enemies)
+            {
+                if (enemy.GetComponent<EnemyController>().alive == true)
+                    Destroy(enemy);
+            }
+        }
+
+        if (goneOut == false)
+        {
             canSpawn = false;
             lights.SetActive(true);
             fuelCurrent -= Time.deltaTime; 
             factorySounds.UnPause();
         }
-        else
+        else if (goneOut == true)
         {
             canSpawn = true;
             lights.SetActive(false);
+            fuelCurrent += Time.deltaTime;
             factorySounds.Pause();
         }
 

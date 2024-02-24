@@ -11,6 +11,6 @@ public class BatteryText : MonoBehaviour
 
     void Update()
     {
-        text.SetText((Mathf.Round(PlayerController.Instance.batteryCurrent * 100) / 100).ToString()  + " sec");
+        text.SetText((Mathf.Round(PlayerController.Instance.batteryCurrent * 100) / 100).ToString());
     }
 }

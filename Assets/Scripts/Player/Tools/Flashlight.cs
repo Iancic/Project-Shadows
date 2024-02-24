@@ -5,7 +5,7 @@ using UnityEngine;
 public class Flashlight : MonoBehaviour
 {
 
-    public bool isOn = true;
+    public bool isOn = false;
 
     public GameObject SpotLight;
 
@@ -24,28 +24,20 @@ public class Flashlight : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        isOn = false;
-    }
-
     void Update()
     {
+        SpotLight.SetActive(isOn);
+
         if (PlayerController.Instance.batteryCurrent < 0)
         {
             isOn = false;
+
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (GameObject enemy in enemies)
+                enemy.GetComponent<EnemyController>().isStunned = false;
+
             ShootBullet.Instance.isSelected = true;
-            PlayerController.Instance.isImmune = false;
         }    
-
-
-        if (isOn)
-        {
-            SpotLight.SetActive(true);
-        }
-        else
-        {
-            SpotLight.SetActive(false);
-        }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class PickUps : MonoBehaviour
 {
     private Vector3 playerPos;
+    private Vector3 enemyPos;
     private Vector3 currentPos;
 
     private float distance;
@@ -10,6 +11,8 @@ public class PickUps : MonoBehaviour
     public GameObject text;
 
     public GameObject player;
+
+    public GameObject enemyBody;
 
     public AudioSource pickupSound;
 
@@ -24,7 +27,14 @@ public class PickUps : MonoBehaviour
     {
         currentPos = transform.position;
         playerPos = player.transform.position;
-        distance = Vector3.Distance(currentPos, playerPos);
+        
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            enemyPos = enemyBody.transform.position;
+            distance = Vector3.Distance(playerPos, enemyPos);
+        }
+        else
+            distance = Vector3.Distance(currentPos, playerPos);
 
         //Visual Text
         if (this.gameObject.CompareTag("Logs") || this.gameObject.CompareTag("Transformer"))
@@ -40,17 +50,21 @@ public class PickUps : MonoBehaviour
                 text.SetActive(false);
             }
         }
-        else if (this.gameObject.CompareTag("Generator") && player.GetComponent<PlayerController>().currentFuel > 0)
+
+        else if (this.gameObject.CompareTag("Enemy"))
         {
-            if (distance < 4f)
+            if (this.GetComponent<EnemyController>().alive == false)
             {
-                outlineScript.enabled = true;
-                text.SetActive(true);
-            }
-            else
-            {
-                outlineScript.enabled = false;
-                text.SetActive(false);
+                if (distance < 3.5f)
+                {
+                    outlineScript.enabled = true;
+                    text.SetActive(true);
+                }
+                else
+                {
+                    outlineScript.enabled = false;
+                    text.SetActive(false);
+                }
             }
         }
         else
@@ -84,13 +98,6 @@ public class PickUps : MonoBehaviour
                 Destroy(this.gameObject, 0.2f);
             }
 
-            else if (this.gameObject.CompareTag("Fuel") && distance < 3.5f)
-            {
-                pickupSound.Play();
-                player.GetComponent<PlayerController>().currentFuel += 1;
-                Destroy(this.gameObject, 0.2f);
-            }
-
             else if (this.gameObject.CompareTag("Logs") && distance < 5f)
             {
                 player.GetComponent<PlayerController>().isCarrying = true;
@@ -103,24 +110,7 @@ public class PickUps : MonoBehaviour
                 pickupSound.Play();
             }
 
-            else if (this.gameObject.CompareTag("Generator") && distance < 4f && player.GetComponent<PlayerController>().currentFuel > 0)
-            {
-                DestroyEnemies();
-                Generator.Instance.fuelCurrent += 30f;
-                player.GetComponent<PlayerController>().currentFuel -= 1;
-                pickupSound.Play();
-            }
-
         }
     }
-
-    public void DestroyEnemies()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
-    }
+    
 }

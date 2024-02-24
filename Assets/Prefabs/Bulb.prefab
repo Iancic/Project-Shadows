@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 4180715380787167616}
   m_Layer: 0
   m_Name: Bulb
-  m_TagString: Light
+  m_TagString: Bulb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

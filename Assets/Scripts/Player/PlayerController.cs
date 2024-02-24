@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     //Battery
     public float batteryMax = 20.00f, batteryCurrent = 20.00f;
-    public int currentAmmo = 3, currentFuel = 0;
+    public int currentAmmo = 3;
 
     public MeshRenderer log;
     public MeshRenderer gun;
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Light"))
+        if (collision.gameObject.CompareTag("Bulb"))
         {
             if (collision.gameObject.GetComponent<Bulb>().isOn == true)
                 isImmune = true;
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Light"))
+        if (collision.gameObject.CompareTag("Bulb"))
         {
             isImmune = false;
         }
