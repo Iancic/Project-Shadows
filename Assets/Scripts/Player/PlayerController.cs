@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     //Player Logic
     public int hitPoints = 10;
-    public bool isImmune = false;
+    [HideInInspector] public bool isImmune = false;
 
     //XP
     public int currentXP = 0, maxXP = 10;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public float batteryMax = 20.00f, batteryCurrent = 20.00f;
     public int currentAmmo = 3;
 
-    public MeshRenderer log;
+    public MeshRenderer organs;
     public MeshRenderer gun;
     public bool isCarrying;
 
@@ -52,15 +52,13 @@ public class PlayerController : MonoBehaviour
         //Carrying
         if (isCarrying)
         {
-            speed = 4f;
             gun.enabled = false;
-            log.enabled = true;
+            organs.enabled = true;
         }
         else
         {
-            speed = 5f;
             gun.enabled = true;
-            log.enabled = false;
+            organs.enabled = false;
         }
 
         if (Flashlight.Instance.isOn == true)
@@ -109,21 +107,15 @@ public class PlayerController : MonoBehaviour
             batteryCurrent += 1.5f;
         }
 
-        else if (collision.gameObject.CompareTag("Ammo") && Input.GetKeyDown(KeyCode.E))
-        {
-            Destroy(collision.gameObject);
-        }
-    }
-
-
-    private void OnTriggerStay(Collider collision)
-    {
         if (collision.gameObject.CompareTag("Bulb"))
         {
             if (collision.gameObject.GetComponent<Bulb>().isOn == true)
                 isImmune = true;
-            else
-                isImmune = false;
+        }
+
+        if (collision.gameObject.CompareTag("Ammo") && Input.GetKeyDown(KeyCode.E))
+        {
+            Destroy(collision.gameObject);
         }
     }
 

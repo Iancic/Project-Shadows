@@ -33,7 +33,6 @@ public class Flashlight : MonoBehaviour
             isOn = false;
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
             foreach (GameObject enemy in enemies)
                 enemy.GetComponent<EnemyController>().isStunned = false;
 

@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public ParticleSystem blood;
     private Animator zombieAnimator;
-    public GameObject fuel;
+    public GameObject guts, organs;
     public AudioSource breathing;
 
     //Movement Speed
@@ -29,29 +29,31 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (alive && PlayerController.Instance.isImmune == false && isStunned == false)
+        if (alive)
         {
-            breathing.mute = false;
-            zombieAnimator.speed = 1f;
-            // Move towards the player
-            Vector3 directionToPlayer = player.position - transform.position;
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-            transform.position = newPosition;
-
-            // Rotate to face the player
-            if (directionToPlayer != Vector3.zero)
+            if (PlayerController.Instance.isImmune == false && isStunned == false)
             {
-                Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+                zombieAnimator.speed = 1f;
+                // Move towards the player
+                Vector3 directionToPlayer = player.position - transform.position;
+                Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                transform.position = newPosition;
+
+                // Rotate to face the player
+                if (directionToPlayer != Vector3.zero)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+                }
+            }
+
+            else
+            {
+                zombieAnimator.speed = 0f;
             }
         }
-        else
-        {
-            breathing.mute = true;
-            zombieAnimator.speed = 0f;
-        }
 
-        if (hitPoints <= 0)
+        if (hitPoints <= 0 && alive == true)
         {
             alive = false;
             StartCoroutine(ZombieDeath());
@@ -83,9 +85,12 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator ZombieDeath()
     {
+        breathing.mute = true;
         zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);
-        yield return new WaitForSeconds(90);
+        Instantiate(guts, transform.position, Quaternion.identity);
+        Instantiate(organs, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(6);
         Destroy(this.gameObject);
     }
 }

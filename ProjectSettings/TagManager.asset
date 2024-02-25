@@ -18,6 +18,7 @@ TagManager:
   - Enemy
   - Body
   - Bulb
+  - Organs
   layers:
   - Default
   - TransparentFX

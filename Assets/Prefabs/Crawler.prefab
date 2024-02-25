@@ -7178,9 +7178,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   blood: {fileID: 5102801458684983307}
-  fuel: {fileID: 3568577082514411509, guid: 823c32c968cc2824699808485a9d1766, type: 3}
+  guts: {fileID: 100000, guid: 358b75ea5451cf143ab19029a189097d, type: 3}
+  organs: {fileID: 4894617611904206259, guid: 1ecacc6f1629c0f4ba5eb174475fe2c8, type: 3}
   breathing: {fileID: 0}
   alive: 1
+  isStunned: 0
 --- !u!54 &6692886042865836128
 Rigidbody:
   m_ObjectHideFlags: 0

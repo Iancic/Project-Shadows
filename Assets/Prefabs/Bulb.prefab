@@ -127,7 +127,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9811321, g: 0.9699339, b: 0.6247775, a: 1}
-  m_Intensity: 90
+  m_Intensity: 40
   m_Range: 11
   m_SpotAngle: 44
   m_InnerSpotAngle: 1
@@ -499,7 +499,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 286.8
+  m_Radius: 240.2
   m_Height: 853
   m_Direction: 1
   m_Center: {x: 0, y: 785.32, z: 0}

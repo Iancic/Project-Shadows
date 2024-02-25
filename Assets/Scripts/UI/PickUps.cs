@@ -12,8 +12,6 @@ public class PickUps : MonoBehaviour
 
     public GameObject player;
 
-    public GameObject enemyBody;
-
     public AudioSource pickupSound;
 
     public Outline outlineScript;
@@ -28,16 +26,10 @@ public class PickUps : MonoBehaviour
         currentPos = transform.position;
         playerPos = player.transform.position;
         
-        if (this.gameObject.CompareTag("Enemy"))
-        {
-            enemyPos = enemyBody.transform.position;
-            distance = Vector3.Distance(playerPos, enemyPos);
-        }
-        else
-            distance = Vector3.Distance(currentPos, playerPos);
+        distance = Vector3.Distance(currentPos, playerPos);
 
         //Visual Text
-        if (this.gameObject.CompareTag("Logs") || this.gameObject.CompareTag("Transformer"))
+        if (this.gameObject.CompareTag("Transformer"))
         {
             if (distance < 5f)
             {
@@ -48,23 +40,6 @@ public class PickUps : MonoBehaviour
             {
                 outlineScript.enabled = false;
                 text.SetActive(false);
-            }
-        }
-
-        else if (this.gameObject.CompareTag("Enemy"))
-        {
-            if (this.GetComponent<EnemyController>().alive == false)
-            {
-                if (distance < 3.5f)
-                {
-                    outlineScript.enabled = true;
-                    text.SetActive(true);
-                }
-                else
-                {
-                    outlineScript.enabled = false;
-                    text.SetActive(false);
-                }
             }
         }
         else
@@ -98,15 +73,16 @@ public class PickUps : MonoBehaviour
                 Destroy(this.gameObject, 0.2f);
             }
 
-            else if (this.gameObject.CompareTag("Logs") && distance < 5f)
+            else if (this.gameObject.CompareTag("Organs") && distance < 5f)
             {
                 player.GetComponent<PlayerController>().isCarrying = true;
-                pickupSound.Play();
+                Destroy(this.gameObject);
             }
 
             else if (this.gameObject.CompareTag("Transformer") && distance < 5f && player.GetComponent<PlayerController>().isCarrying)
             {
                 player.GetComponent<PlayerController>().isCarrying = false;
+                Spitter.Instance.SpawnMeat();
                 pickupSound.Play();
             }
 

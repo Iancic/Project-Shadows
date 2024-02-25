@@ -3,7 +3,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     //Components
-    public GameObject zombiePrefab;
+    public GameObject walkerPrefab, crawlerPrefab;
     public Transform playerTransform;
 
     //Spawn Radius
@@ -39,7 +39,9 @@ public class Spawner : MonoBehaviour
     public void SpawnZombie()
     {
         Vector3 spawnPosition = playerTransform.position + Random.insideUnitSphere * spawnRadius;
+        Vector3 spawnPosition2 = playerTransform.position + Random.insideUnitSphere * spawnRadius;
         spawnPosition.y = 0;
+        spawnPosition2.y = 0;
 
         //Check for safe zone
         if ((spawnPosition - playerTransform.position).magnitude < safeZoneRadius)
@@ -47,6 +49,7 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
+        Instantiate(walkerPrefab, spawnPosition, Quaternion.identity);
+        Instantiate(crawlerPrefab, spawnPosition2, Quaternion.identity);
     }
 }

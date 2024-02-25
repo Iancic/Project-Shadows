@@ -20,12 +20,12 @@ public class ToolSelector : MonoBehaviour
             if (ShootBullet.Instance.isSelected == false)
             {
                 flashlightClick.Play();
-                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-                foreach (GameObject enemy in enemies)
-                    enemy.GetComponent<EnemyController>().isStunned = false;
                 ShootBullet.Instance.isSelected = true;
                 Flashlight.Instance.isOn = false;
+
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies)
+                    enemy.GetComponent<EnemyController>().isStunned = false;
             }
             else
             {
