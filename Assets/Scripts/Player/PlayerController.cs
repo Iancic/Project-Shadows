@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     //Player Logic
     public int hitPoints = 10;
-    [HideInInspector] public bool isImmune = false;
+    [HideInInspector] public bool isImmune;
 
     //XP
     public int currentXP = 0, maxXP = 10;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        isImmune = false;
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -107,23 +108,23 @@ public class PlayerController : MonoBehaviour
             batteryCurrent += 1.5f;
         }
 
+        if (collision.gameObject.CompareTag("Ammo") && Input.GetKeyDown(KeyCode.E))
+        {
+            Destroy(collision.gameObject);
+        }
+
         if (collision.gameObject.CompareTag("Bulb"))
         {
             if (collision.gameObject.GetComponent<Bulb>().isOn == true)
                 isImmune = true;
         }
-
-        if (collision.gameObject.CompareTag("Ammo") && Input.GetKeyDown(KeyCode.E))
-        {
-            Destroy(collision.gameObject);
-        }
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Bulb"))
+        if(collision.gameObject.CompareTag("Bulb"))
         {
-            isImmune = false;
+                isImmune = false;
         }
     }
 }

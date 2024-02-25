@@ -7,9 +7,9 @@ public class Spawner : MonoBehaviour
     public Transform playerTransform;
 
     //Spawn Radius
-    private float spawnRadius = 35f, safeZoneRadius = 25f;
+    private float spawnRadius = 45f;
     private int maxZombies = 10;
-    private float spawnInterval = 3.5f;
+    private float spawnInterval = 6f;
 
     private float timer;
 
@@ -42,12 +42,6 @@ public class Spawner : MonoBehaviour
         Vector3 spawnPosition2 = playerTransform.position + Random.insideUnitSphere * spawnRadius;
         spawnPosition.y = 0;
         spawnPosition2.y = 0;
-
-        //Check for safe zone
-        if ((spawnPosition - playerTransform.position).magnitude < safeZoneRadius)
-        {
-            return;
-        }
 
         Instantiate(walkerPrefab, spawnPosition, Quaternion.identity);
         Instantiate(crawlerPrefab, spawnPosition2, Quaternion.identity);

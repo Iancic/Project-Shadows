@@ -51,14 +51,13 @@ public class EnemyController : MonoBehaviour
             {
                 zombieAnimator.speed = 0f;
             }
-        }
 
-        if (hitPoints <= 0 && alive == true)
-        {
-            alive = false;
-            StartCoroutine(ZombieDeath());
+            if (hitPoints <= 0)
+            {
+                alive = false;
+                StartCoroutine(ZombieDeath());
+            }
         }
-
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -68,7 +67,10 @@ public class EnemyController : MonoBehaviour
             blood.Play();
             hitPoints = hitPoints - 1;
         }
+    }
 
+    private void OnTriggerStay(Collider collision)
+    {
         if (collision.gameObject.tag == "Light")
         {
             isStunned = true;
