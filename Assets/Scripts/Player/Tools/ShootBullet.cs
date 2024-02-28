@@ -37,7 +37,7 @@ public class ShootBullet : MonoBehaviour
 
         if (isSelected)
         {
-            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.currentAmmo > 0)
+            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.currentAmmo > 0 && PlayerController.Instance.canShoot == true)
             {
                 StartCoroutine(Flash());
                 bulletSound.Play();

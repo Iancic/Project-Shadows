@@ -5,7 +5,7 @@ public class TimeText : MonoBehaviour
 {
     public TMP_Text text;
 
-    private int hour, minutes;
+    private float hour, minutesLeft = 15, secondsLeft = 20;
     private float minutestext;
 
     void Start()
@@ -17,17 +17,16 @@ public class TimeText : MonoBehaviour
 
     void Update()
     {
-        if (minutestext < 10)
-            text.SetText(hour.ToString() + ":" + "0" + Mathf.RoundToInt(minutestext).ToString());
-        else if (minutestext > 10)
-            text.SetText(hour.ToString() + ":" + Mathf.RoundToInt(minutestext).ToString());
+        secondsLeft -= Time.deltaTime;
 
-        if (minutestext >= 60f)
+        if (secondsLeft <= 0)
         {
-            hour++;
-            minutestext = 0f;
+            secondsLeft = 60;
+            minutesLeft -= 1;
         }
-
-        minutestext += Time.deltaTime;
+        if (secondsLeft > 9)
+            text.SetText(" Time Left: " + minutesLeft.ToString() + ":" + Mathf.RoundToInt(secondsLeft).ToString());
+        else
+            text.SetText(" Time Left: " + minutesLeft.ToString() + ":0" + Mathf.RoundToInt(secondsLeft).ToString());
     }
 }

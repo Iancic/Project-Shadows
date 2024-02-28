@@ -12,13 +12,10 @@ TagManager:
   - Ammo
   - Battery
   - Fuel
-  - Transformer
-  - Logs
-  - Generator
   - Enemy
   - Body
   - Bulb
-  - Organs
+  - Computer
   layers:
   - Default
   - TransparentFX

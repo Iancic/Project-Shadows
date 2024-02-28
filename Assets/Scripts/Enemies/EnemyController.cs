@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public ParticleSystem blood;
     private Animator zombieAnimator;
-    public GameObject guts, organs;
+    public GameObject guts;
     public AudioSource breathing;
 
     //Movement Speed
@@ -91,7 +91,6 @@ public class EnemyController : MonoBehaviour
         zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);
         Instantiate(guts, transform.position, Quaternion.identity);
-        Instantiate(organs, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(6);
         Destroy(this.gameObject);
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -21,13 +22,16 @@ public class PlayerController : MonoBehaviour
     public int currentXP = 0, maxXP = 10;
     public int level = 1;
 
-    //Battery
-    public float batteryMax = 20.00f, batteryCurrent = 20.00f;
-    public int currentAmmo = 3;
+    //Battery & Ammo
+    [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
+    [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
+    public float reloadTime = 6f;
+    public bool isReloading = false;
 
-    public MeshRenderer organs;
     public MeshRenderer gun;
     public bool isCarrying;
+
+    public bool canShoot = false;
 
     public static PlayerController Instance { get; private set; }
 
@@ -50,21 +54,39 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //Ammo
+        if (currentAmmo <= 0)
+        {
+            isReloading = true;
+        }
+
+        if (isReloading)
+        {
+            StartCoroutine(ReloadGun());
+        }
+
+        //Battery
+        if (batteryCurrent > batteryMax)
+        {
+            batteryCurrent = batteryMax;
+            //Don't let the battery exceed the limit
+        }
+
         //Carrying
         if (isCarrying)
         {
             gun.enabled = false;
-            organs.enabled = true;
         }
         else
         {
             gun.enabled = true;
-            organs.enabled = false;
         }
 
+        //Flashlight
         if (Flashlight.Instance.isOn == true)
             batteryCurrent -= Time.deltaTime;
 
+        //Movement
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -102,17 +124,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Battery") && Input.GetKeyDown(KeyCode.E))
-        {
-            Destroy(collision.gameObject);
-            batteryCurrent += 1.5f;
-        }
-
-        if (collision.gameObject.CompareTag("Ammo") && Input.GetKeyDown(KeyCode.E))
-        {
-            Destroy(collision.gameObject);
-        }
-
         if (collision.gameObject.CompareTag("Bulb"))
         {
             if (collision.gameObject.GetComponent<Bulb>().isOn == true)
@@ -126,5 +137,14 @@ public class PlayerController : MonoBehaviour
         {
                 isImmune = false;
         }
+    }
+
+    public IEnumerator ReloadGun()
+    {
+        isReloading = false;
+        canShoot = false;
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = maxAmmo;
+        canShoot = true;
     }
 }

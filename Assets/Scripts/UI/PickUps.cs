@@ -29,9 +29,9 @@ public class PickUps : MonoBehaviour
         distance = Vector3.Distance(currentPos, playerPos);
 
         //Visual Text
-        if (this.gameObject.CompareTag("Transformer"))
+        if (this.gameObject.CompareTag("Computer"))
         {
-            if (distance < 5f)
+            if (distance < 6.5f)
             {
                 outlineScript.enabled = true;
                 text.SetActive(true);
@@ -59,31 +59,11 @@ public class PickUps : MonoBehaviour
         //Interaction
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (this.gameObject.CompareTag("Ammo") && distance < 3.5f)
+            if (this.gameObject.CompareTag("Battery") && distance < 3.5f)
             {
                 pickupSound.Play();
-                player.GetComponent<PlayerController>().currentAmmo += 1;
+                player.GetComponent<PlayerController>().batteryCurrent += 20f;
                 Destroy(this.gameObject, 0.2f);
-            }
-
-            else if (this.gameObject.CompareTag("Battery") && distance < 3.5f)
-            {
-                pickupSound.Play();
-                player.GetComponent<PlayerController>().batteryCurrent += 10f;
-                Destroy(this.gameObject, 0.2f);
-            }
-
-            else if (this.gameObject.CompareTag("Organs") && distance < 5f)
-            {
-                player.GetComponent<PlayerController>().isCarrying = true;
-                Destroy(this.gameObject);
-            }
-
-            else if (this.gameObject.CompareTag("Transformer") && distance < 5f && player.GetComponent<PlayerController>().isCarrying)
-            {
-                player.GetComponent<PlayerController>().isCarrying = false;
-                Spitter.Instance.SpawnMeat();
-                pickupSound.Play();
             }
 
         }
