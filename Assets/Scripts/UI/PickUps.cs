@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PickUps : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class PickUps : MonoBehaviour
         distance = Vector3.Distance(currentPos, playerPos);
 
         //Visual Text
-        if (this.gameObject.CompareTag("Computer"))
+        if (this.gameObject.CompareTag("Computer") || this.gameObject.CompareTag("Radio"))
         {
             if (distance < 6.5f)
             {
@@ -65,6 +66,12 @@ public class PickUps : MonoBehaviour
                 player.GetComponent<PlayerController>().batteryCurrent += 20f;
                 Destroy(this.gameObject, 0.2f);
             }
+
+            if (this.gameObject.CompareTag("Door") && distance < 3.5f)
+            {
+                SceneManager.LoadScene("MainRoom");
+            }
+
 
         }
     }

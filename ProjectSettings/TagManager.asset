@@ -16,6 +16,8 @@ TagManager:
   - Body
   - Bulb
   - Computer
+  - Radio
+  - Door
   layers:
   - Default
   - TransparentFX

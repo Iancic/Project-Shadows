@@ -5,14 +5,11 @@ public class TimeText : MonoBehaviour
 {
     public TMP_Text text;
 
-    private float hour, minutesLeft = 15, secondsLeft = 20;
-    private float minutestext;
+    private float minutesLeft = 15, secondsLeft = 20;
 
     void Start()
     {
         text = GetComponent<TMP_Text>();
-        hour = 23;
-        minutestext = 0f;
     }
 
     void Update()

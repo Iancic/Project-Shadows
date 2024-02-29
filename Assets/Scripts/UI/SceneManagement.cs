@@ -7,7 +7,7 @@ public class SceneManagement : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Demo");
+        SceneManager.LoadScene("Intro");
     }
 
     public void ExitGame()
