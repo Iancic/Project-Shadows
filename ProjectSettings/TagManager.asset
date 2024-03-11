@@ -18,6 +18,7 @@ TagManager:
   - Computer
   - Radio
   - Door
+  - Generator
   layers:
   - Default
   - TransparentFX
