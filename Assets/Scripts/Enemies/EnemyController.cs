@@ -65,6 +65,8 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             blood.Play();
+            // TODO: Modularize damage here
+            // TODO: Damage upgrade
             hitPoints = hitPoints - 1;
         }
     }

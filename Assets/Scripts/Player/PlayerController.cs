@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     public AudioSource footSteps;
 
+    // TODO: Movement speed upgrade
     //Movement Speed
     private float speed = 5f;
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     //Battery & Ammo
     [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
     [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
+    // TODO: Reload upgrade
     public float reloadTime = 6f;
     public bool isReloading = false;
 
