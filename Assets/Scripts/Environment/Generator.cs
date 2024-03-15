@@ -32,7 +32,6 @@ public class Generator : MonoBehaviour
         if (fuelCurrent <= 0f && goneOut == false)
         {
             outTage.Play();
-            Debug.Log("asdasd");
             goneOut = true;
         }
         else if (fuelCurrent >= fuelMax && goneOut == true)

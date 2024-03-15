@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 5f;
 
     //Player Logic
-    public int hitPoints = 10;
+    public int hitPoints = 100;
     [HideInInspector] public bool isImmune;
 
     //XP
@@ -56,6 +57,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (hitPoints < 0)
+        {
+            SceneManager.LoadScene("Restart");
+        }
+
         //Ammo
         if (currentAmmo <= 0)
         {
@@ -130,6 +136,11 @@ public class PlayerController : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<Bulb>().isOn == true)
                 isImmune = true;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            hitPoints -= 1;
         }
     }
 

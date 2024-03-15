@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,17 +10,19 @@ public class EnemyController : MonoBehaviour
     private Animator zombieAnimator;
     public GameObject guts;
     public AudioSource breathing;
+    public Image healthBarImage;
 
     //Movement Speed
     private float speed = 4.5f, rotationSpeed = 8f;
 
     //Logic
-    private int hitPoints = 1;
+    private int hitPoints, maxHitPoints = 3;
     public bool alive = true;
     public bool isStunned = false;
 
     private void Awake()
     {
+        hitPoints = maxHitPoints;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         zombieAnimator = gameObject.GetComponent<Animator>();
         breathing = gameObject.GetComponent<AudioSource>();
@@ -29,6 +32,10 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+
+        float fillAmount = (float)hitPoints / maxHitPoints;
+        healthBarImage.fillAmount = fillAmount;
+
         if (alive)
         {
             if (PlayerController.Instance.isImmune == false && isStunned == false)

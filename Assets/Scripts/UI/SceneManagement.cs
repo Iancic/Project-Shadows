@@ -10,6 +10,11 @@ public class SceneManagement : MonoBehaviour
         SceneManager.LoadScene("Intro");
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("MainRoom");
+    }
+
     public void ExitGame()
     {
         Application.Quit();
