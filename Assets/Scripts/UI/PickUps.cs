@@ -72,6 +72,10 @@ public class PickUps : MonoBehaviour
                 SceneManager.LoadScene("MainRoom");
             }
 
+            if (gameObject.CompareTag("Computer") && distance < 6.5f)
+            {
+                UIManager.Instance.DisplayShop(true);
+            }
 
         }
     }

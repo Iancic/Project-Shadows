@@ -27,4 +27,9 @@ public class Shop : MonoBehaviour
             }
         }
     }
+
+    public void CloseShop()
+    {
+        UIManager.Instance.DisplayShop(false);
+    }
 }
