@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ShootBullet : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class ShootBullet : MonoBehaviour
 
         if (isSelected)
         {
-            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.currentAmmo > 0 && PlayerController.Instance.canShoot == true)
+            if (Input.GetMouseButtonDown(0) && PlayerController.Instance.currentAmmo > 0 && PlayerController.Instance.canShoot == true && !EventSystem.current.IsPointerOverGameObject())
             {
                 StartCoroutine(Flash());
                 bulletSound.Play();
