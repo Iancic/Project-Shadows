@@ -5790,7 +5790,7 @@ RectTransform:
   m_GameObject: {fileID: 3536058041303108949}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.533}
-  m_LocalScale: {x: 0.01, y: 0.001, z: 0.1}
+  m_LocalScale: {x: 0.005, y: 0.001, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2957561375901572710}
@@ -5822,7 +5822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 55b5bf63feb43e84f93f99a0041c0a56, type: 2}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.49056602, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6346,7 +6346,7 @@ RectTransform:
   m_GameObject: {fileID: 4951618555817093411}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.533}
-  m_LocalScale: {x: 0.01, y: 0.001, z: 0.1}
+  m_LocalScale: {x: 0.005, y: 0.001, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2957561375901572710}
@@ -7438,6 +7438,7 @@ MonoBehaviour:
   guts: {fileID: 100000, guid: 358b75ea5451cf143ab19029a189097d, type: 3}
   breathing: {fileID: 0}
   healthBarImage: {fileID: 8382705435883685279}
+  ui: {fileID: 527318133947408688}
   alive: 1
   isStunned: 0
 --- !u!54 &6692886042865836128

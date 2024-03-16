@@ -10,7 +10,9 @@ public class EnemyController : MonoBehaviour
     private Animator zombieAnimator;
     public GameObject guts;
     public AudioSource breathing;
+
     public Image healthBarImage;
+    public GameObject ui;
 
     //Movement Speed
     private float speed = 4.5f, rotationSpeed = 8f;
@@ -35,6 +37,15 @@ public class EnemyController : MonoBehaviour
 
         float fillAmount = (float)hitPoints / maxHitPoints;
         healthBarImage.fillAmount = fillAmount;
+
+        if (isStunned && alive == true)
+        {
+            ui.SetActive(true);
+        }
+        else
+        {
+            ui.SetActive(false);
+        }
 
         if (alive)
         {
@@ -96,6 +107,7 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator ZombieDeath()
     {
+        ui.SetActive(false);
         breathing.mute = true;
         zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);

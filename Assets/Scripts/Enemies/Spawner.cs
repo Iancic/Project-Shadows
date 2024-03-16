@@ -8,42 +8,85 @@ public class Spawner : MonoBehaviour
 
     //Spawn Radius
     private float spawnRadius = 45f;
-    private int maxZombies = 10;
-    private float spawnInterval = 6f;
+
+    //Wave Specs
+    private float spawnInterval1 = 6f, spawnInterval2 = 4f, spawnInterval3 = 3f; //Wave 1, 2, 3 Spawnrate
+    public float waveLenght1 = 30f, waveLenght2 = 40f, waveLenght3 = 60f; //Wave 1, 2, 3 Lenght
+    public int wave = 1;
 
     private float timer;
 
+    public static Spawner Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        timer = spawnInterval;
+        timer = spawnInterval1;
     }
 
     void Update()
     {
         if (Generator.Instance.canSpawn == true)
         {
-            if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < maxZombies)
+            if (wave <= 3)
             {
-                SpawnZombie();
-                timer = spawnInterval;
+                if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 5)
+                {
+                    Spawn(walkerPrefab);
+                    timer = spawnInterval1;
+                }
+                else
+                {
+                    timer -= Time.deltaTime;
+                }
             }
-            else
+
+            else if (wave <= 5)
             {
-                timer -= Time.deltaTime;
+                if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 8)
+                {
+                    Spawn(walkerPrefab);
+                    Spawn(crawlerPrefab);
+                    timer = spawnInterval2;
+                }
+                else
+                {
+                    timer -= Time.deltaTime;
+                }
             }
+
+            else if (wave <= 10)
+            {
+                if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 12)
+                {
+                    Spawn(walkerPrefab);
+                    Spawn(crawlerPrefab);
+                    timer = spawnInterval3;
+                }
+                else
+                {
+                    timer -= Time.deltaTime;
+                }
+            }
+
         }
 
     }
 
-    public void SpawnZombie()
+    public void Spawn(GameObject prefab)
     {
         Vector3 spawnPosition = playerTransform.position + Random.insideUnitSphere * spawnRadius;
-        Vector3 spawnPosition2 = playerTransform.position + Random.insideUnitSphere * spawnRadius;
         spawnPosition.y = 0;
-        spawnPosition2.y = 0;
 
-        Instantiate(walkerPrefab, spawnPosition, Quaternion.identity);
-        Instantiate(crawlerPrefab, spawnPosition2, Quaternion.identity);
+        Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
 }

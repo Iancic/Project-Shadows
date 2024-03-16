@@ -7,7 +7,7 @@ public class Generator : MonoBehaviour
     public GameObject lights;
     public AudioSource factorySounds, musicBox;
     public AudioSource outTage;
-    public float fuelMax = 60.00f, fuelCurrent = 10.00f;
+    public float fuelMax, fuelCurrent = 10.00f;
 
     public bool canSpawn;
     public bool goneOut = false;
@@ -31,12 +31,24 @@ public class Generator : MonoBehaviour
 
         if (fuelCurrent <= 0f && goneOut == false)
         {
+            if (Spawner.Instance.wave == 1)
+                fuelMax = Spawner.Instance.waveLenght1;
+            else if (Spawner.Instance.wave == 2)
+                fuelMax = Spawner.Instance.waveLenght2;
+            else if (Spawner.Instance.wave == 3)
+                fuelMax = Spawner.Instance.waveLenght3;
+
+            Spawner.Instance.wave += 1;
             outTage.Play();
             goneOut = true;
         }
         else if (fuelCurrent >= fuelMax && goneOut == true)
         {
             goneOut = false;
+
+
+            fuelMax = 20f; //BUY TIME
+            fuelCurrent = 20f; //BUY TIME
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
