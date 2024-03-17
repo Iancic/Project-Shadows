@@ -19,6 +19,8 @@ TagManager:
   - Radio
   - Door
   - Generator
+  - HealthDispenser
+  - BatteryDispenser
   layers:
   - Default
   - TransparentFX

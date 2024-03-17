@@ -30,7 +30,7 @@ public class PickUps : MonoBehaviour
         distance = Vector3.Distance(currentPos, playerPos);
 
         //Visual Text
-        if (this.gameObject.CompareTag("Computer") || this.gameObject.CompareTag("Radio"))
+        if (this.gameObject.CompareTag("Computer"))
         {
             if (distance < 6.5f)
             {

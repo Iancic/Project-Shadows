@@ -111,8 +111,9 @@ public class EnemyController : MonoBehaviour
         breathing.mute = true;
         zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);
-        Instantiate(guts, transform.position, Quaternion.identity);
+        Instantiate(guts, transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity);
         yield return new WaitForSeconds(6);
         Destroy(this.gameObject);
     }
+
 }
