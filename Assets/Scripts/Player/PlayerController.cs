@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
 
     //Battery & Ammo
     [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
+
     [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
+
     // TODO: Reload upgrade
     public float reloadTime = 6f;
     public bool isReloading = false;
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
         if (currentAmmo <= 0)
         {
             isReloading = true;
+            UIManager.Instance.ToggleReloadIcon(true);
         }
 
         if (isReloading)
@@ -111,7 +114,7 @@ public class PlayerController : MonoBehaviour
             footSteps.enabled = false;
             animator.SetBool("isRunning", false);
         }
-         
+
         // Handle Orientation
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -146,9 +149,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Bulb"))
+        if (collision.gameObject.CompareTag("Bulb"))
         {
-                isImmune = false;
+            isImmune = false;
         }
     }
 
@@ -157,6 +160,7 @@ public class PlayerController : MonoBehaviour
         isReloading = false;
         canShoot = false;
         yield return new WaitForSeconds(reloadTime);
+        UIManager.Instance.ToggleReloadIcon(false);
         currentAmmo = maxAmmo;
         canShoot = true;
     }

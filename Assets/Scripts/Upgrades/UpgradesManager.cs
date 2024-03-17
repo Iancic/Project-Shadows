@@ -41,8 +41,6 @@ public class UpgradesManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"Value for upgrade type: {UpgradeType.MovementSpeed} is {GetValue(UpgradeType.MovementSpeed)}");
-        Debug.Log($"Value for upgrade type: {UpgradeType.ReloadTime} is {GetValue(UpgradeType.ReloadTime)}");
     }
 
     public void BuyUpgrade(Upgrade upgrade)
