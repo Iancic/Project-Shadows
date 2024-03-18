@@ -21,6 +21,7 @@ TagManager:
   - Generator
   - HealthDispenser
   - BatteryDispenser
+  - Barrel
   layers:
   - Default
   - TransparentFX

@@ -91,6 +91,11 @@ public class EnemyController : MonoBehaviour
             // TODO: Damage upgrade
             hitPoints = hitPoints - 1;
         }
+
+        if (collision.gameObject.CompareTag("Barrel"))
+        {
+            hitPoints -= 10; //Barrel.DAMAGE
+        }
     }
 
     private void OnTriggerStay(Collider collision)

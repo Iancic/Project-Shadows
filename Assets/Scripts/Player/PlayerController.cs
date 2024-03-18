@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (hitPoints < 0)
+        if (hitPoints <= 0)
         {
             SceneManager.LoadScene("Restart");
         }
@@ -159,7 +159,12 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            hitPoints -= 1;
+            hitPoints -= 1; //Enemy.DAMAGE
+        }
+
+        if (collision.gameObject.CompareTag("Barrel"))
+        {
+            hitPoints -= 10; //Barrel.DAMAGE
         }
     }
 
