@@ -28,6 +28,7 @@ public class Flashlight : MonoBehaviour
         if (PlayerController.Instance.batteryCurrent < 0)
         {
             isOn = false;
+            StatsManager.Instance.Multiplier = 1;
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in enemies)

@@ -30,6 +30,7 @@ public class ToolSelector : MonoBehaviour
                 flashlightClick.Play();
                 ShootBullet.Instance.isSelected = false;
                 Flashlight.Instance.isOn = true;
+                StatsManager.Instance.Multiplier = 1;
                 PlayerController.Instance.canShoot = false;
             }
         }

@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
     //Wave Specs
     private float spawnInterval1 = 6f, spawnInterval2 = 4f, spawnInterval3 = 3f; //Wave 1, 2, 3 Spawnrate
     public float waveLenght1 = 30f, waveLenght2 = 40f, waveLenght3 = 60f; //Wave 1, 2, 3 Lenght
-    public int wave = 1;
+    public int wave = 0;
 
     private float timer;
 

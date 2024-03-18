@@ -17,6 +17,10 @@ public class EnemyController : MonoBehaviour
     //Movement Speed
     private float speed = 4.5f, rotationSpeed = 8f;
 
+    //Zombie Values (Class value means the value of the enemy, multiplier is the value of the multipler at death)
+    public int classValue = 100, classMultiplier = 1;
+    
+
     //Logic
     private int hitPoints, maxHitPoints = 3;
     public bool alive = true;
@@ -107,12 +111,28 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator ZombieDeath()
     {
+
+        //Add Money
+        StatsManager.Instance.AddMoney(classValue);
+        StatsManager.Instance.AddMultiplier(classMultiplier);
+
+        //Disables HealthBar
         ui.SetActive(false);
+
+        //Mute Audio
         breathing.mute = true;
+
+        //Death Animation
         zombieAnimator.speed = 1f;
         zombieAnimator.SetBool("isDead", true);
+
+        //Blood Patch
         Instantiate(guts, transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity);
+
+        //Let The Body On The Floor
         yield return new WaitForSeconds(6);
+
+        //Destroy Object 
         Destroy(this.gameObject);
     }
 
