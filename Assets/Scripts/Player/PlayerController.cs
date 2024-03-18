@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +15,9 @@ public class PlayerController : MonoBehaviour
 
     // TODO: Movement speed upgrade
     //Movement Speed
-    private float speed = 5f;
+    private float baseSpeed = 5f;
+
+    private float speed = 0f;
 
     //Player Logic
     public int hitPoints = 100;
@@ -55,6 +58,19 @@ public class PlayerController : MonoBehaviour
         footSteps = gameObject.GetComponent<AudioSource>();
         controller = gameObject.GetComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        speed = baseSpeed + UpgradesManager.Instance.GetValue(UpgradeType.MovementSpeed);
+        
+        UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
+        {
+            if (type == UpgradeType.MovementSpeed)
+            {
+                speed = baseSpeed + f;
+            }
+        };
     }
 
     void Update()

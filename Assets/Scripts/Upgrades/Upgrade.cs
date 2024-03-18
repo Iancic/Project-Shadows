@@ -17,8 +17,7 @@ public class Upgrade
 
     public void UpgradeLevel()
     {
-        // TODO: Check for enough player money
-        if (Level < Definition.MaxLevel)
+        if (Level < Definition.MaxLevel && StatsManager.Instance.GetMoney() >= Cost)
         {
             Level++;
             Cost = (int)(Definition.BaseCost + (Definition.CostIncrease * Level));

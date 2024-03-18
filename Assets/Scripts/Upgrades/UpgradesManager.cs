@@ -9,6 +9,9 @@ public class UpgradesManager : MonoBehaviour
     
     public List<UpgradeDefinition> UpgradeDefinitions;
     public Shop ShopUI;
+    
+    public Action<UpgradeType, float> OnUpgradeChanged;
+
     private List<Upgrade> _upgrades;
 
     private void Awake()
@@ -49,6 +52,7 @@ public class UpgradesManager : MonoBehaviour
         {
             StatsManager.Instance.RemoveMoney(upgrade.Cost);
             upgrade.UpgradeLevel();
+            OnUpgradeChanged?.Invoke(upgrade.Definition.Type, upgrade.GetValue());
             if (ShopUI != null)
             {
                 ShopUI.UpdateUpgrade(upgrade);
