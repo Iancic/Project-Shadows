@@ -47,3 +47,6 @@ MonoBehaviour:
   UpgradeDefinitions:
   - {fileID: 11400000, guid: 4f63c6a76a94d584a9b2b752bedc4d18, type: 2}
   - {fileID: 11400000, guid: b579b825ed905714dbc86d3fdf619a36, type: 2}
+  - {fileID: 11400000, guid: 9304e001d5f9bd546b6822c0d3a17426, type: 2}
+  - {fileID: 11400000, guid: 26c40dd75965feb4dbfc8d4d3d3429be, type: 2}
+  ShopUI: {fileID: 0}

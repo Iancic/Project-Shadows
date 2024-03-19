@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class Flashlight : MonoBehaviour
 {
@@ -5,6 +6,7 @@ public class Flashlight : MonoBehaviour
     public bool isOn = false;
 
     public GameObject SpotLight;
+    public int Range = 10;
 
     public static Flashlight Instance { get; private set; }
 
@@ -19,6 +21,19 @@ public class Flashlight : MonoBehaviour
             Instance = this;
         }
 
+    }
+
+    private void Start()
+    {
+        Range = (int) UpgradesManager.Instance.GetValue(UpgradeType.FlashlightRange);
+        UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
+        {
+            if (type == UpgradeType.FlashlightRange)
+            {
+                Range = (int) f;
+                SpotLight.GetComponent<Light>().range = Range;
+            }
+        };
     }
 
     void Update()

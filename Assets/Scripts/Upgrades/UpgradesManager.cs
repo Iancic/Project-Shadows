@@ -50,6 +50,7 @@ public class UpgradesManager : MonoBehaviour
     {
         if (StatsManager.Instance.GetMoney() >= upgrade.Cost && upgrade.Level < upgrade.Definition.MaxLevel)
         {
+            Debug.Log("Bought upgrade");
             StatsManager.Instance.RemoveMoney(upgrade.Cost);
             upgrade.UpgradeLevel();
             OnUpgradeChanged?.Invoke(upgrade.Definition.Type, upgrade.GetValue());

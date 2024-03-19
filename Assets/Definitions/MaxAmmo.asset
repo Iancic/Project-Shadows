@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a034e9ff9d5f41e41858e1c33a944da4, type: 3}
-  m_Name: ReloadTime
+  m_Name: MaxAmmo
   m_EditorClassIdentifier: 
-  UpgradeName: Reload Time
-  Type: 1
+  UpgradeName: Max Ammo
+  Type: 2
   BaseCost: 10
   CostIncrease: 50
-  BaseValue: 0
-  ValueStep: -0.2
+  BaseValue: 6
+  ValueStep: 1
   MaxLevel: 10

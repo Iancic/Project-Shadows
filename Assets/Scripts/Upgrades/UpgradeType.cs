@@ -1,5 +1,7 @@
 public enum UpgradeType
 {
     MovementSpeed,
-    ReloadTime
+    ReloadTime,
+    MaxAmmo,
+    FlashlightRange
 }

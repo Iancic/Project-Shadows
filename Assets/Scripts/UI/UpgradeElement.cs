@@ -26,9 +26,6 @@ public class UpgradeElement : MonoBehaviour
         Name.text = upgrade.Definition.UpgradeName;
         Value.text = "Value: " + upgrade.GetValue();
         Cost.text = "Cost: " + upgrade.Cost;
-        
-        BuyButton.interactable = StatsManager.Instance.GetMoney() >= upgrade.Cost && upgrade.Level < upgrade.Definition.MaxLevel;
-        
         BindCallback();
     }
 
@@ -38,8 +35,16 @@ public class UpgradeElement : MonoBehaviour
         BuyButton.onClick.AddListener(OnBuyClick);
     }
 
+    private void Update()
+    {
+        if (_upgrade == null) return;
+        
+        BuyButton.interactable = StatsManager.Instance.GetMoney() >= _upgrade.Cost && _upgrade.Level < _upgrade.Definition.MaxLevel;
+    }
+
     private void OnBuyClick()
     {
+        Debug.Log("Clicked upgrade");
         UpgradesManager.Instance.BuyUpgrade(_upgrade);
     }
 }

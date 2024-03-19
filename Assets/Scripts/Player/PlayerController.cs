@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController Instance { get; private set; }
 
+    private float _reloadTimeUpgrade = 0f;
+    private float _maxAmmoUpgrade = 0f;
+
     private void Awake()
     {
         isImmune = false;
@@ -63,12 +66,24 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         speed = baseSpeed + UpgradesManager.Instance.GetValue(UpgradeType.MovementSpeed);
+        _reloadTimeUpgrade = UpgradesManager.Instance.GetValue(UpgradeType.ReloadTime);
+        _maxAmmoUpgrade = UpgradesManager.Instance.GetValue(UpgradeType.MaxAmmo);
         
         UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
         {
             if (type == UpgradeType.MovementSpeed)
             {
                 speed = baseSpeed + f;
+            }
+
+            if (type == UpgradeType.ReloadTime)
+            {
+                _reloadTimeUpgrade = f;
+            }
+            
+            if (type == UpgradeType.MaxAmmo)
+            {
+                maxAmmo = (int) f;
             }
         };
     }
@@ -77,7 +92,7 @@ public class PlayerController : MonoBehaviour
     {
         if (hitPoints <= 0)
         {
-            SceneManager.LoadScene("Restart");
+            // SceneManager.LoadScene("Restart");
         }
 
         //Ammo
@@ -180,7 +195,8 @@ public class PlayerController : MonoBehaviour
     {
         isReloading = false;
         canShoot = false;
-        yield return new WaitForSeconds(reloadTime);
+        Debug.Log($"Reloading for {reloadTime + _reloadTimeUpgrade} seconds");
+        yield return new WaitForSeconds(reloadTime + _reloadTimeUpgrade); // + because the upgrade is a negative value
         UIManager.Instance.ToggleReloadIcon(false);
         currentAmmo = maxAmmo;
         canShoot = true;
