@@ -44,7 +44,6 @@ public class UpgradeElement : MonoBehaviour
 
     private void OnBuyClick()
     {
-        Debug.Log("Clicked upgrade");
         UpgradesManager.Instance.BuyUpgrade(_upgrade);
     }
 }

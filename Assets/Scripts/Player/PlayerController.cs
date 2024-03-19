@@ -195,7 +195,6 @@ public class PlayerController : MonoBehaviour
     {
         isReloading = false;
         canShoot = false;
-        Debug.Log($"Reloading for {reloadTime + _reloadTimeUpgrade} seconds");
         yield return new WaitForSeconds(reloadTime + _reloadTimeUpgrade); // + because the upgrade is a negative value
         UIManager.Instance.ToggleReloadIcon(false);
         currentAmmo = maxAmmo;
