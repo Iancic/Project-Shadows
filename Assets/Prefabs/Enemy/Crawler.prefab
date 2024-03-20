@@ -7437,8 +7437,11 @@ MonoBehaviour:
   blood: {fileID: 5102801458684983307}
   guts: {fileID: 100000, guid: 358b75ea5451cf143ab19029a189097d, type: 3}
   breathing: {fileID: 0}
+  enemyCollider: {fileID: 0}
   healthBarImage: {fileID: 845077897420825569}
   ui: {fileID: 3479161458819466801}
+  classValue: 100
+  classMultiplier: 1
   alive: 1
   isStunned: 0
 --- !u!54 &6692886042865836128
@@ -7487,7 +7490,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1708536, y: 1.682654, z: 1.0702504}
+  m_Size: {x: 0.8, y: 1.5, z: 0.8}
   m_Center: {x: 0.015679453, y: 0.8209262, z: 0.08735686}
 --- !u!82 &64937232399643120
 AudioSource:

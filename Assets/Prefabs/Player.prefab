@@ -4955,148 +4955,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1 &875600288634532662
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 68890912942068062}
-  - component: {fileID: 4451665102664564066}
-  - component: {fileID: 3140891516241021539}
-  m_Layer: 0
-  m_Name: Tool Selector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &68890912942068062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875600288634532662}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12133169, y: 1.1229994, z: 0.57882833}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 598021024368492036}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4451665102664564066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875600288634532662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d7540f512f34e54eb4d8d367e52e51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashlightClick: {fileID: 0}
---- !u!82 &3140891516241021539
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875600288634532662}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dfc3bf92c44e7b741b069e84781a095d, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &912636234487727819
 GameObject:
   m_ObjectHideFlags: 0
@@ -5933,8 +5791,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6ed598ffc860d4fa278560165e5f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
   SpotLight: {fileID: 8902622966176983827}
+  flashlightClick: {fileID: 2758026824959078327}
+  isOn: 0
+  batteryMax: 60
+  batteryCurrent: 20
+  Range: 10
 --- !u!82 &2758026824959078327
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12748,7 +12610,6 @@ Transform:
   m_Children:
   - {fileID: 1694679600067045849}
   - {fileID: 386494441992304353}
-  - {fileID: 68890912942068062}
   - {fileID: 3814833239328354117}
   - {fileID: 7965478643078018629}
   - {fileID: 465021302868043605}
@@ -12870,20 +12731,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
   footSteps: {fileID: 6411285726298100294}
-  hitPoints: 20
+  hitPoints: 100
   isImmune: 0
   currentXP: 0
   maxXP: 10
   level: 1
-  batteryMax: 20
-  batteryCurrent: 20
   currentAmmo: 3
   maxAmmo: 6
   reloadTime: 4
   isReloading: 0
-  gun: {fileID: 4233476043493460050}
-  isCarrying: 0
-  canShoot: 0
+  canShoot: 1
 --- !u!82 &6411285726298100294
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13310,7 +13167,6 @@ MonoBehaviour:
   muzzle: {fileID: 5926230727704233970}
   bulletSound: {fileID: 0}
   bulletSpeed: 20
-  isSelected: 1
   flashObject: {fileID: 4202663612583591597}
 --- !u!82 &6745493946422445484
 AudioSource:

@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     private Animator zombieAnimator;
     public GameObject guts;
     public AudioSource breathing;
+    public BoxCollider enemyCollider;
 
     public Image healthBarImage;
     public GameObject ui;
@@ -29,11 +30,17 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         hitPoints = maxHitPoints;
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        enemyCollider = gameObject.GetComponent<BoxCollider>();
         zombieAnimator = gameObject.GetComponent<Animator>();
+
+        //Audio Initialization
         breathing = gameObject.GetComponent<AudioSource>();
         breathing.pitch = Random.Range(0.6f, 1f);
         breathing.Play();
+
     }
 
     void Update()
@@ -116,6 +123,8 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator ZombieDeath()
     {
+        //Remove Collider
+        enemyCollider.enabled = false;
 
         //Add Money
         StatsManager.Instance.AddMoney(classValue);
