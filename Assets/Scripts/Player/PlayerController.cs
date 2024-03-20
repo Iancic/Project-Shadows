@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
 
-    // TODO: Reload upgrade
     public float reloadTime = 6f;
     public bool isReloading = false;
 
@@ -44,7 +43,6 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; }
 
     private float _reloadTimeUpgrade = 0f;
-    private float _maxAmmoUpgrade = 0f;
 
     private void Awake()
     {
@@ -67,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         speed = baseSpeed + UpgradesManager.Instance.GetValue(UpgradeType.MovementSpeed);
         _reloadTimeUpgrade = UpgradesManager.Instance.GetValue(UpgradeType.ReloadTime);
-        _maxAmmoUpgrade = UpgradesManager.Instance.GetValue(UpgradeType.MaxAmmo);
+        maxAmmo = (int) UpgradesManager.Instance.GetValue(UpgradeType.MaxAmmo);
         
         UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
         {
