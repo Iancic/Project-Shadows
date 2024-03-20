@@ -13,9 +13,6 @@ public class ShootBullet : MonoBehaviour
     //Gun Logic
     public float bulletSpeed = 20f;
 
-    //Tool Selection
-    public bool isSelected = true;
-
     public GameObject flashObject; //LIGHT 
     public static ShootBullet Instance { get; private set; }
 
@@ -35,9 +32,6 @@ public class ShootBullet : MonoBehaviour
 
     void Update()
     {
-
-        if (isSelected)
-        {
             if (Input.GetMouseButtonDown(0) && PlayerController.Instance.currentAmmo > 0 && PlayerController.Instance.canShoot == true && !EventSystem.current.IsPointerOverGameObject())
             {
                 StartCoroutine(Flash());
@@ -47,7 +41,7 @@ public class ShootBullet : MonoBehaviour
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 muzzle.Play();
 
-                StartCoroutine(CameraController.Instance.Shake(0.3f, 0.6f));
+                StartCoroutine(CameraController.Instance.Shake(0.6f, 1f));
 
                 // Add velocity to the bullet
                 if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
@@ -55,7 +49,6 @@ public class ShootBullet : MonoBehaviour
                     rb.velocity = bulletSpawnPoint.forward * bulletSpeed;
                 }
             }
-        }
     }
 
     public IEnumerator Flash()

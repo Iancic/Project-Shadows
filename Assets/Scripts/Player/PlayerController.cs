@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,26 +16,21 @@ public class PlayerController : MonoBehaviour
     private float speed = 0f;
 
     //Player Logic
-    public int hitPoints = 100;
+    [HideInInspector] public int hitPoints = 100;
     [HideInInspector] public bool isImmune;
 
     //XP
     public int currentXP = 0, maxXP = 10;
     public int level = 1;
 
-    //Battery & Ammo
-    [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
-
+    //Ammo
     [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
 
     // TODO: Reload upgrade
     public float reloadTime = 6f;
     public bool isReloading = false;
 
-    public MeshRenderer gun;
-    public bool isCarrying;
-
-    public bool canShoot = false;
+    [HideInInspector] public bool canShoot = true;
 
     public static PlayerController Instance { get; private set; }
 
@@ -48,7 +39,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        currentAmmo = maxAmmo;
         isImmune = false;
+
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -96,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Ammo
-        if (currentAmmo <= 0)
+        if (currentAmmo <= 0 && isReloading == false)
         {
             isReloading = true;
             UIManager.Instance.ToggleReloadIcon(true);
@@ -106,27 +99,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(ReloadGun());
         }
-
-        //Battery
-        if (batteryCurrent > batteryMax)
-        {
-            batteryCurrent = batteryMax;
-            //Don't let the battery exceed the limit
-        }
-
-        //Carrying
-        if (isCarrying)
-        {
-            gun.enabled = false;
-        }
-        else
-        {
-            gun.enabled = true;
-        }
-
-        //Flashlight
-        if (Flashlight.Instance.isOn == true)
-            batteryCurrent -= Time.deltaTime;
 
         //Movement
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -193,11 +165,11 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator ReloadGun()
     {
-        isReloading = false;
         canShoot = false;
         yield return new WaitForSeconds(reloadTime + _reloadTimeUpgrade); // + because the upgrade is a negative value
         UIManager.Instance.ToggleReloadIcon(false);
         currentAmmo = maxAmmo;
+        isReloading = false;
         canShoot = true;
     }
 }

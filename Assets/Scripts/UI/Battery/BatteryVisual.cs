@@ -7,7 +7,7 @@ public class BatteryVisual : MonoBehaviour
 
     void Update()
     {
-        float fillAmount = PlayerController.Instance.batteryCurrent / PlayerController.Instance.batteryMax;
+        float fillAmount = Flashlight.Instance.batteryCurrent / Flashlight.Instance.batteryMax;
         fillImage.fillAmount = fillAmount;
     }
 }

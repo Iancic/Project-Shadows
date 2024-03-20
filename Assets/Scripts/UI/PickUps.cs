@@ -63,7 +63,7 @@ public class PickUps : MonoBehaviour
             if (this.gameObject.CompareTag("Battery") && distance < 3.5f)
             {
                 pickupSound.Play();
-                player.GetComponent<PlayerController>().batteryCurrent += 20f;
+                player.GetComponent<Flashlight>().batteryCurrent += 20f;
                 Destroy(this.gameObject, 0.2f);
             }
 
