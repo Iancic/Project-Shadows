@@ -60,22 +60,25 @@ public class PickUps : MonoBehaviour
         //Interaction
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (this.gameObject.CompareTag("Battery") && distance < 3.5f)
+            if (this.gameObject.CompareTag("BatteryDispenser") && distance < 3.5f && StatsManager.Instance.Money - 100 >= 0)
             {
                 pickupSound.Play();
-                player.GetComponent<Flashlight>().batteryCurrent += 20f;
-                Destroy(this.gameObject, 0.2f);
+                Flashlight.Instance.batteryCurrent += 15f;
+                StatsManager.Instance.RemoveMoney(100);
+            }
+
+            if (this.gameObject.CompareTag("HealthDispenser") && distance < 3.5f && StatsManager.Instance.Money - 100 >= 0)
+            {
+                pickupSound.Play();
+                player.GetComponent<PlayerController>().hitPoints += 15;
+                StatsManager.Instance.RemoveMoney(100);
             }
 
             if (this.gameObject.CompareTag("Door") && distance < 3.5f)
-            {
                 SceneManager.LoadScene("MainRoom");
-            }
 
             if (gameObject.CompareTag("Computer") && distance < 6.5f)
-            {
                 UIManager.Instance.DisplayShop(true);
-            }
 
         }
     }
