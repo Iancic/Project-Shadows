@@ -94,14 +94,12 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             blood.Play();
-            // TODO: Modularize damage here
-            // TODO: Damage upgrade
-            hitPoints = hitPoints - 1;
+            Damage(10, false);
         }
 
         if (collision.gameObject.CompareTag("Barrel"))
         {
-            hitPoints -= 10; //Barrel.DAMAGE
+            Damage(10, false);
         }
     }
 
@@ -143,6 +141,11 @@ public class EnemyController : MonoBehaviour
                 return;
             }
             
+            hitPoints -= (int) damage;
+        }
+
+        else
+        {
             hitPoints -= (int) damage;
         }
     }

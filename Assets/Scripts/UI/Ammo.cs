@@ -13,6 +13,6 @@ public class Ammo : MonoBehaviour
 
     void Update()
     {
-        text.SetText(PlayerController.Instance.currentAmmo.ToString());
+        text.SetText(GunController.Instance.currentAmmo.ToString());
     }
 }

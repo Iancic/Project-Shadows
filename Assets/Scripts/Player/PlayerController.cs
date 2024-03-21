@@ -25,22 +25,12 @@ public class PlayerController : MonoBehaviour
     public int MaxXP = 10;
     public int Level = 1;
 
-    //Ammo
-    [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
-
-    public float reloadTime = 6f;
-    public bool isReloading = false;
-
-    [HideInInspector] public bool canShoot = true;
-
     public static PlayerController Instance { get; private set; }
     
     protected List<EnemyController> _enemiesInRange = new List<EnemyController>();
-    private float _reloadTimeUpgrade = 0f;
 
     private void Awake()
     {
-        currentAmmo = maxAmmo;
         Damageable = false;
 
         if (Instance != null && Instance != this)
@@ -61,26 +51,13 @@ public class PlayerController : MonoBehaviour
     {
         Flashlight = GetComponentInChildren<Flashlight>();
         speed = baseSpeed + UpgradesManager.Instance.GetValue(UpgradeType.MovementSpeed);
-        _reloadTimeUpgrade = UpgradesManager.Instance.GetValue(UpgradeType.ReloadTime);
-        maxAmmo = (int) UpgradesManager.Instance.GetValue(UpgradeType.MaxAmmo);
         playerCamera = Camera.main;
-        footSteps = GetComponent<AudioSource>();
 
         UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
         {
             if (type == UpgradeType.MovementSpeed)
             {
                 speed = baseSpeed + f;
-            }
-
-            if (type == UpgradeType.ReloadTime)
-            {
-                _reloadTimeUpgrade = f;
-            }
-
-            if (type == UpgradeType.MaxAmmo)
-            {
-                maxAmmo = (int) f;
             }
         };
     }
@@ -90,18 +67,6 @@ public class PlayerController : MonoBehaviour
         if (HP <= 0)
         {
             // SceneManager.LoadScene("Restart");
-        }
-
-        //Ammo
-        if (currentAmmo <= 0 && isReloading == false)
-        {
-            isReloading = true;
-            UIManager.Instance.ToggleReloadIcon(true);
-        }
-
-        if (isReloading)
-        {
-            StartCoroutine(ReloadGun());
         }
 
         //Movement
@@ -152,12 +117,12 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            HP -= 1; //Enemy.DAMAGE
+            Damage(1);
         }
 
         if (collision.gameObject.CompareTag("Barrel"))
         {
-            HP -= 10; //Barrel.DAMAGE
+            Damage(20);
         }
     }
 
@@ -169,13 +134,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public IEnumerator ReloadGun()
+    public void Damage(int damage)
     {
-        canShoot = false;
-        yield return new WaitForSeconds(reloadTime + _reloadTimeUpgrade); // + because the upgrade is a negative value
-        UIManager.Instance.ToggleReloadIcon(false);
-        currentAmmo = maxAmmo;
-        isReloading = false;
-        canShoot = true;
+        HP -= damage;
     }
 }
