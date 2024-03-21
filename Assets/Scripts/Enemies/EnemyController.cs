@@ -16,11 +16,13 @@ public class EnemyController : MonoBehaviour
     public GameObject ui;
 
     //Movement Speed
-    private float speed = 4.5f, rotationSpeed = 8f;
+    public float BaseSpeed = 4.5f;
+    public float Speed = 4.5f;
+    public float RotationSpeed = 8f;
 
     //Zombie Values (Class value means the value of the enemy, multiplier is the value of the multipler at death)
     public int classValue = 100, classMultiplier = 1;
-    
+
 
     //Logic
     private int hitPoints, maxHitPoints = 3;
@@ -40,13 +42,11 @@ public class EnemyController : MonoBehaviour
         breathing = gameObject.GetComponent<AudioSource>();
         breathing.pitch = Random.Range(0.6f, 1f);
         breathing.Play();
-
     }
 
     void Update()
     {
-
-        float fillAmount = (float)hitPoints / maxHitPoints;
+        float fillAmount = (float) hitPoints / maxHitPoints;
         healthBarImage.fillAmount = fillAmount;
 
         if (isStunned && alive == true)
@@ -60,19 +60,19 @@ public class EnemyController : MonoBehaviour
 
         if (alive)
         {
-            if (PlayerController.Instance.isImmune == false && isStunned == false)
+            if (PlayerController.Instance.Damageable == false && isStunned == false)
             {
-                zombieAnimator.speed = 1f;
+                zombieAnimator.speed = Speed / BaseSpeed;
                 // Move towards the player
                 Vector3 directionToPlayer = player.position - transform.position;
-                Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, Speed * Time.deltaTime);
                 transform.position = newPosition;
 
                 // Rotate to face the player
                 if (directionToPlayer != Vector3.zero)
                 {
                     Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, RotationSpeed * Time.deltaTime);
                 }
             }
 
@@ -105,22 +105,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider collision)
-    {
-        if (collision.gameObject.tag == "Light")
-        {
-            isStunned = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Light"))
-        {
-            isStunned = false;
-        }
-    }
-
     public IEnumerator ZombieDeath()
     {
         //Remove Collider
@@ -137,7 +121,7 @@ public class EnemyController : MonoBehaviour
         breathing.mute = true;
 
         //Death Animation
-        zombieAnimator.speed = 1f;
+        zombieAnimator.speed = Speed / BaseSpeed;
         zombieAnimator.SetBool("isDead", true);
 
         //Blood Patch
@@ -150,4 +134,16 @@ public class EnemyController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public void Damage(int damage, bool isFromLight)
+    {
+        if (isFromLight)
+        {
+            if (hitPoints - damage <= 0)
+            {
+                return;
+            }
+            
+            hitPoints -= (int) damage;
+        }
+    }
 }

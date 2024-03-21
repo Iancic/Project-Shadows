@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,20 +10,20 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     public AudioSource footSteps;
+    public Flashlight Flashlight;
 
-    // TODO: Movement speed upgrade
     //Movement Speed
     private float baseSpeed = 5f;
-
     private float speed = 0f;
 
     //Player Logic
-    [HideInInspector] public int hitPoints = 100;
-    [HideInInspector] public bool isImmune;
+    [HideInInspector] public int HP = 100;
+    [HideInInspector] public bool Damageable;
 
     //XP
-    public int currentXP = 0, maxXP = 10;
-    public int level = 1;
+    public int CurrentXP = 0;
+    public int MaxXP = 10;
+    public int Level = 1;
 
     //Ammo
     [HideInInspector] public int currentAmmo = 6, maxAmmo = 6;
@@ -32,13 +34,14 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canShoot = true;
 
     public static PlayerController Instance { get; private set; }
-
+    
+    protected List<EnemyController> _enemiesInRange = new List<EnemyController>();
     private float _reloadTimeUpgrade = 0f;
 
     private void Awake()
     {
         currentAmmo = maxAmmo;
-        isImmune = false;
+        Damageable = false;
 
         if (Instance != null && Instance != this)
         {
@@ -54,12 +57,15 @@ public class PlayerController : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
+        Flashlight = GetComponentInChildren<Flashlight>();
         speed = baseSpeed + UpgradesManager.Instance.GetValue(UpgradeType.MovementSpeed);
         _reloadTimeUpgrade = UpgradesManager.Instance.GetValue(UpgradeType.ReloadTime);
         maxAmmo = (int) UpgradesManager.Instance.GetValue(UpgradeType.MaxAmmo);
-        
+        playerCamera = Camera.main;
+        footSteps = GetComponent<AudioSource>();
+
         UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
         {
             if (type == UpgradeType.MovementSpeed)
@@ -71,7 +77,7 @@ public class PlayerController : MonoBehaviour
             {
                 _reloadTimeUpgrade = f;
             }
-            
+
             if (type == UpgradeType.MaxAmmo)
             {
                 maxAmmo = (int) f;
@@ -79,9 +85,9 @@ public class PlayerController : MonoBehaviour
         };
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        if (hitPoints <= 0)
+        if (HP <= 0)
         {
             // SceneManager.LoadScene("Restart");
         }
@@ -127,11 +133,13 @@ public class PlayerController : MonoBehaviour
             transform.LookAt(targetPosition);
         }
 
-        if (currentXP == maxXP)
+        if (CurrentXP == MaxXP)
         {
-            currentXP = 0;
-            level++;
+            CurrentXP = 0;
+            Level++;
         }
+
+        _enemiesInRange = Flashlight.Logic();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -139,17 +147,17 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Bulb"))
         {
             if (collision.gameObject.GetComponent<Bulb>().isOn == true)
-                isImmune = true;
+                Damageable = true;
         }
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            hitPoints -= 1; //Enemy.DAMAGE
+            HP -= 1; //Enemy.DAMAGE
         }
 
         if (collision.gameObject.CompareTag("Barrel"))
         {
-            hitPoints -= 10; //Barrel.DAMAGE
+            HP -= 10; //Barrel.DAMAGE
         }
     }
 
@@ -157,7 +165,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bulb"))
         {
-            isImmune = false;
+            Damageable = false;
         }
     }
 

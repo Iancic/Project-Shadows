@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CameraController : MonoBehaviour
 {
@@ -24,6 +26,11 @@ public class CameraController : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void LateUpdate()

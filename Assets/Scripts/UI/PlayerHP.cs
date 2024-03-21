@@ -11,6 +11,6 @@ public class PlayerHP : MonoBehaviour
 
     void Update()
     {
-        text.SetText((PlayerController.Instance.hitPoints).ToString());
+        text.SetText((PlayerController.Instance.HP).ToString());
     }
 }

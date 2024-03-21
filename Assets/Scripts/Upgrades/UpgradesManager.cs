@@ -28,6 +28,18 @@ public class UpgradesManager : MonoBehaviour
 
     private void Start()
     {
+        if (_upgrades == null)
+        {
+            LoadUpgrades();
+        }
+    }
+
+    private void Update()
+    {
+    }
+
+    public void LoadUpgrades()
+    {
         // TODO: Load upgrades from save file
         _upgrades = new List<Upgrade>();
         foreach (var upgradeDefinition in UpgradeDefinitions)
@@ -40,10 +52,6 @@ public class UpgradesManager : MonoBehaviour
         {
             ShopUI.Populate(_upgrades);
         }
-    }
-
-    private void Update()
-    {
     }
 
     public void BuyUpgrade(Upgrade upgrade)
@@ -62,6 +70,11 @@ public class UpgradesManager : MonoBehaviour
 
     public float GetValue(UpgradeType type)
     {
+        if (_upgrades == null)
+        {
+            LoadUpgrades();
+        }
+        
         var upgrade = _upgrades.Find(u => u.Definition.Type == type);
         if (upgrade == null)
         {

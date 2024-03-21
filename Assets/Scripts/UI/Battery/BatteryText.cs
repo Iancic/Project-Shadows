@@ -11,6 +11,6 @@ public class BatteryText : MonoBehaviour
 
     void Update()
     {
-        text.SetText((Mathf.Round(Flashlight.Instance.batteryCurrent * 100) / 100).ToString());
+        text.SetText((Mathf.Round(PlayerController.Instance.Flashlight.batteryCurrent * 100) / 100).ToString());
     }
 }

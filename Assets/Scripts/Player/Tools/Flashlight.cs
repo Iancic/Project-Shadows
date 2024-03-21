@@ -1,55 +1,74 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+
 public class Flashlight : MonoBehaviour
 {
     public GameObject SpotLight;
     public AudioSource flashlightClick;
+    public DetectionCone Cone;
 
     public bool isOn = false;
 
-    [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
 
+    [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
     public int Range = 10;
 
-    public static Flashlight Instance { get; private set; }
+    private Light _lightComp;
+    private List<EnemyController> _enemiesInCone = new List<EnemyController>();
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-
-    }
-
-    private void Start()
+    public void Init(Color lightColor)
     {
         Range = (int) UpgradesManager.Instance.GetValue(UpgradeType.FlashlightRange);
+        Cone = GetComponentInChildren<DetectionCone>();
+        _lightComp = SpotLight.GetComponent<Light>();
+        Cone.OnEnemyEnter += (e) =>
+        {
+            _enemiesInCone.Add(e);
+        };
+        
+        Cone.OnEnemyExit += (e) =>
+        {
+            // Reset the values to defaults
+            e.isStunned = false;
+            e.Speed = e.BaseSpeed;
+            _enemiesInCone.Remove(e);
+        };
+        
         UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
         {
             if (type == UpgradeType.FlashlightRange)
             {
                 Range = (int) f;
-                SpotLight.GetComponent<Light>().range = Range;
+                _lightComp.range = Range;
             }
         };
+
+        _lightComp.color = lightColor;
     }
 
-    void Update()
+    public List<EnemyController> Logic()
     {
         SpotLight.SetActive(isOn);
 
         //Don't let the battery exceed the limit
-        if (batteryCurrent > batteryMax)
-            batteryCurrent = batteryMax;
+        batteryCurrent = Mathf.Clamp(batteryCurrent, 0, batteryMax);
 
         //Battery Life
-        if (Flashlight.Instance.isOn == true)
+        if (isOn)
+        {
             batteryCurrent -= Time.deltaTime;
+        }
+        else
+        {
+            foreach (var enemy in _enemiesInCone)
+            {
+                // Reset the values to defaults
+                enemy.isStunned = false;
+                enemy.Speed = enemy.BaseSpeed;
+            }
+            _enemiesInCone.Clear();
+        }
 
         //Turn On At Click
         if (Input.GetMouseButtonDown(1) && batteryCurrent > 0)
@@ -64,11 +83,6 @@ public class Flashlight : MonoBehaviour
                 flashlightClick.Play();
                 isOn = false;
                 StatsManager.Instance.Multiplier = 1; //Reset Score Multiplier
-
-                //Un stun all enemies when you close the light
-                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (GameObject enemy in enemies)
-                    enemy.GetComponent<EnemyController>().isStunned = false;
             }
         }
 
@@ -77,11 +91,8 @@ public class Flashlight : MonoBehaviour
         {
             isOn = false;
             StatsManager.Instance.Multiplier = 1; //Reset Score Multiplier
-
-            //Un stun all enemies when you close the light
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies)
-                enemy.GetComponent<EnemyController>().isStunned = false;
-        }    
+        }
+        
+        return _enemiesInCone;
     }
 }
