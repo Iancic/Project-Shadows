@@ -5119,6 +5119,11 @@ MonoBehaviour:
   muzzle: {fileID: 5914548058239846225}
   bulletSound: {fileID: 0}
   bulletSpeed: 20
+  currentAmmo: 6
+  maxAmmo: 6
+  reloadTime: 6
+  isReloading: 0
+  canShoot: 1
   flashObject: {fileID: 879196166026282217}
 --- !u!82 &5646810077974878630
 AudioSource:
@@ -5569,11 +5574,6 @@ MonoBehaviour:
   CurrentXP: 0
   MaxXP: 10
   Level: 1
-  currentAmmo: 6
-  maxAmmo: 6
-  reloadTime: 6
-  isReloading: 0
-  canShoot: 1
 --- !u!82 &8829349154067126050
 AudioSource:
   m_ObjectHideFlags: 0

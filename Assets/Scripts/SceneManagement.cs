@@ -7,12 +7,17 @@ public class SceneManagement : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadScene("Arena");
+    }
+
+    public void SelectChar()
+    {
+        SceneManager.LoadScene("CharacterMenu");
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("MainRoom");
+        SceneManager.LoadScene("Arena");
     }
 
     public void ExitGame()
