@@ -25,13 +25,14 @@ public class EnemyController : MonoBehaviour
 
 
     //Logic
-    private int hitPoints, maxHitPoints = 3;
+    private float hp;
+    private float maxHP = 100f;
     public bool alive = true;
     public bool isStunned = false;
 
     private void Awake()
     {
-        hitPoints = maxHitPoints;
+        hp = maxHP;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -46,7 +47,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        float fillAmount = (float) hitPoints / maxHitPoints;
+        float fillAmount = hp / maxHP;
         healthBarImage.fillAmount = fillAmount;
 
         if (isStunned && alive == true)
@@ -81,7 +82,7 @@ public class EnemyController : MonoBehaviour
                 zombieAnimator.speed = 0f;
             }
 
-            if (hitPoints <= 0)
+            if (hp <= 0)
             {
                 alive = false;
                 StartCoroutine(ZombieDeath());
@@ -94,12 +95,12 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             blood.Play();
-            Damage(10, false);
+            Damage(50, false);
         }
 
         if (collision.gameObject.CompareTag("Barrel"))
         {
-            Damage(10, false);
+            Damage(50, false);
         }
     }
 
@@ -132,21 +133,16 @@ public class EnemyController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void Damage(int damage, bool isFromLight)
+    public void Damage(float damage, bool isFromLight)
     {
         if (isFromLight)
         {
-            if (hitPoints - damage <= 0)
+            if (hp - damage <= 0)
             {
                 return;
             }
-            
-            hitPoints -= (int) damage;
         }
 
-        else
-        {
-            hitPoints -= (int) damage;
-        }
+        hp -= damage;
     }
 }

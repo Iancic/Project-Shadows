@@ -84,15 +84,17 @@ public class Flashlight : MonoBehaviour
                 isOn = false;
                 StatsManager.Instance.Multiplier = 1; //Reset Score Multiplier
             }
+            GunController.Instance.CanShoot = !isOn;
         }
 
         //If battery goes out
         if (batteryCurrent <= 0)
         {
             isOn = false;
+            GunController.Instance.CanShoot = true;
             StatsManager.Instance.Multiplier = 1; //Reset Score Multiplier
         }
-        
+
         return _enemiesInCone;
     }
 }

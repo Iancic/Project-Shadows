@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class GunController : MonoBehaviour
 {
@@ -21,12 +22,12 @@ public class GunController : MonoBehaviour
     private float _reloadTimeUpgrade = 0f;
     public bool isReloading = false;
 
-    [HideInInspector] public bool canShoot = true;
+    [HideInInspector] public bool CanShoot = true;
 
     public GameObject flashObject; //LIGHT 
     public static GunController Instance { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         currentAmmo = maxAmmo;
 
@@ -59,9 +60,8 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
-
         //Ammo
-        if (currentAmmo <= 0 && isReloading == false && canShoot == true)
+        if (currentAmmo <= 0 && isReloading == false && CanShoot == true)
         {
             isReloading = true;
         }
@@ -73,7 +73,7 @@ public class GunController : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(0) && currentAmmo > 0 && canShoot == true && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0) && currentAmmo > 0 && CanShoot == true && !EventSystem.current.IsPointerOverGameObject())
             {
                 StartCoroutine(Flash());
                 bulletSound.Play();
@@ -102,11 +102,11 @@ public class GunController : MonoBehaviour
     public IEnumerator ReloadGun()
     {
         UIManager.Instance.ToggleReloadIcon(true);
-        canShoot = false;
+        CanShoot = false;
         yield return new WaitForSeconds(reloadTime + _reloadTimeUpgrade); // + because the upgrade is a negative value
 
         UIManager.Instance.ToggleReloadIcon(false);
         currentAmmo = maxAmmo;
-        canShoot = true;
+        CanShoot = true;
     }
 }

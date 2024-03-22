@@ -15,7 +15,6 @@ public class StunnerController : PlayerController
     {
         base.Update();
     
-        Debug.Log(_enemiesInRange.Count);
         foreach (var enemy in _enemiesInRange)
         {
             enemy.isStunned = true;

@@ -17,7 +17,8 @@ public class AttackerController : PlayerController
     
         foreach (var enemy in _enemiesInRange)
         {
-            enemy.Damage(1, true);
+            // TODO: Tweak this value, might be a tad overpowered now, because with 60 FPS, we are dealing 30 damage per second
+            enemy.Damage(0.5f, true);
         }
     }
 }
