@@ -25,6 +25,7 @@ public class Flashlight : MonoBehaviour
         Cone.OnEnemyEnter += (e) =>
         {
             _enemiesInCone.Add(e);
+            e.Seen = true;
         };
         
         Cone.OnEnemyExit += (e) =>
@@ -33,6 +34,7 @@ public class Flashlight : MonoBehaviour
             e.isStunned = false;
             e.Speed = e.BaseSpeed;
             _enemiesInCone.Remove(e);
+            e.Seen = false;
         };
         
         UpgradesManager.Instance.OnUpgradeChanged += (type, f) =>
@@ -66,6 +68,7 @@ public class Flashlight : MonoBehaviour
                 // Reset the values to defaults
                 enemy.isStunned = false;
                 enemy.Speed = enemy.BaseSpeed;
+                enemy.Seen = false;
             }
             _enemiesInCone.Clear();
         }

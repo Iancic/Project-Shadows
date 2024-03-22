@@ -29,7 +29,9 @@ public class EnemyController : MonoBehaviour
     private float maxHP = 100f;
     public bool alive = true;
     public bool isStunned = false;
-
+    // Represents whenever the enemy is discovered by the DetectionCone of the player's gun
+    public bool Seen = false;
+    
     private void Awake()
     {
         hp = maxHP;
@@ -50,7 +52,7 @@ public class EnemyController : MonoBehaviour
         float fillAmount = hp / maxHP;
         healthBarImage.fillAmount = fillAmount;
 
-        if (isStunned && alive == true)
+        if (Seen && alive == true)
         {
             ui.SetActive(true);
         }
