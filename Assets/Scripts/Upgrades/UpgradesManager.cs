@@ -41,11 +41,29 @@ public class UpgradesManager : MonoBehaviour
     public void LoadUpgrades()
     {
         // TODO: Load upgrades from save file
+        List<DataSaver.UpgradeData> loadedUpgrades = DataSaver.LoadUpgrades();
         _upgrades = new List<Upgrade>();
-        foreach (var upgradeDefinition in UpgradeDefinitions)
+
+        foreach (var loaded in loadedUpgrades)
         {
+            var upgradeDefinition = UpgradeDefinitions.Find(u => u.Type == loaded.Type);
+            if (upgradeDefinition == null)
+            {
+                throw new Exception("The upgrade definition you are searching for does not exist.");
+            }
+            
             var upgrade = new Upgrade(upgradeDefinition);
+            upgrade.Level = loaded.Level;
             _upgrades.Add(upgrade);
+        }
+        
+        // If there are new upgrades, add them to the list
+        foreach (var definition in UpgradeDefinitions)
+        {
+            if (_upgrades.Find(u => u.Definition.Type == definition.Type) == null)
+            {
+                _upgrades.Add(new Upgrade(definition));
+            }
         }
 
         if (ShopUI != null)
@@ -82,5 +100,10 @@ public class UpgradesManager : MonoBehaviour
         }
 
         return upgrade.GetValue();
+    }
+
+    private void OnApplicationQuit()
+    {
+        DataSaver.SaveUpgrades(_upgrades);
     }
 }
