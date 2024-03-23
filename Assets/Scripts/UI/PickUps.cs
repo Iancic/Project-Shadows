@@ -17,13 +17,10 @@ public class PickUps : MonoBehaviour
 
     public Outline outlineScript;
 
-    private void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     void Update()
     {
+
+        player = GameObject.FindGameObjectWithTag("Player");
         currentPos = transform.position;
         playerPos = player.transform.position;
         

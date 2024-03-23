@@ -29,12 +29,14 @@ public class Spawner : MonoBehaviour
             Instance = this;
         }
 
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        
         timer = spawnInterval1;
     }
 
     void Update()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
         if (Generator.Instance.canSpawn == true)
         {
             if (wave <= 3)
