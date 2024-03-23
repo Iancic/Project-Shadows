@@ -21,15 +21,17 @@ public class Bulb : MonoBehaviour
         bulbMetal.transform.Rotate(new Vector3(0, rotSpeed * Time.deltaTime, 0));
     }
 
+    // ! TODO: Refactor this
     public IEnumerator Flicker()
     {
-        while (true){
-        isOn = true;
-        SpotLight.SetActive(isOn);
-        yield return new WaitForSeconds(Random.Range(8f, 10f)); //For how much the bulb is on
-        isOn = false;
-        SpotLight.SetActive(isOn);
-        yield return new WaitForSeconds(Random.Range(3f, 8f)); //For how much the bulb is off
+        while (true)
+        {
+            isOn = true;
+            SpotLight.SetActive(isOn);
+            yield return new WaitForSeconds(Random.Range(8f, 10f)); //For how much the bulb is on
+            isOn = false;
+            SpotLight.SetActive(isOn);
+            yield return new WaitForSeconds(Random.Range(3f, 8f)); //For how much the bulb is off
         }
     }
 }

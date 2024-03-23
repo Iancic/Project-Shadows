@@ -54,7 +54,7 @@ public class Generator : MonoBehaviour
 
             foreach (GameObject enemy in enemies)
             {
-                if (enemy.GetComponent<EnemyController>().alive == true)
+                if (enemy.GetComponent<EnemyController>().Alive == true)
                     Destroy(enemy);
             }
         }

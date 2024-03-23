@@ -1,43 +1,51 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
     //Components
-    public Transform player;
+    [Header("Components")] public Transform player;
     public ParticleSystem blood;
     private Animator zombieAnimator;
     public GameObject guts;
     public AudioSource breathing;
     public BoxCollider enemyCollider;
-
     public Image healthBarImage;
     public GameObject ui;
 
+    [Space(10)] [Header("Enemy Stats")]
     //Movement Speed
     public float BaseSpeed = 4.5f;
-    public float Speed = 4.5f;
+
     public float RotationSpeed = 8f;
+    public float AttackSpeed = 1f;
+    public float AttackDamage = 40f;
+    public float MaxHP = 100f;
 
     //Zombie Values (Class value means the value of the enemy, multiplier is the value of the multipler at death)
-    public int classValue = 100, classMultiplier = 1;
+    public int ClassValue = 100;
+    public int ClassMultiplier = 1;
 
 
+    [Header("Behaviour logic")]
     //Logic
-    private float hp;
-    private float maxHP = 100f;
-    public bool alive = true;
-    public bool isStunned = false;
+    public float HP;
+
+    public bool Alive = true;
+    public float Speed = 4.5f;
+
+    public bool IsStunned = false;
+
     // Represents whenever the enemy is discovered by the DetectionCone of the player's gun
     public bool Seen = false;
-    
-    private void Awake()
+
+    private void Start()
     {
-        hp = maxHP;
+        HP = MaxHP;
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
+        player = PlayerController.Instance.transform;
         enemyCollider = gameObject.GetComponent<BoxCollider>();
         zombieAnimator = gameObject.GetComponent<Animator>();
 
@@ -46,49 +54,44 @@ public class EnemyController : MonoBehaviour
         breathing.pitch = Random.Range(0.6f, 1f);
         breathing.Play();
     }
-
-    void Update()
+    
+    protected virtual void Update()
     {
-        float fillAmount = hp / maxHP;
+        if (!Alive) return;
+        
+        float fillAmount = HP / MaxHP;
         healthBarImage.fillAmount = fillAmount;
 
-        if (Seen && alive == true)
+        ui.SetActive(Seen);
+
+        zombieAnimator.speed = IsStunned ? 0f : Speed / BaseSpeed; // TODO: Ask David about this PlayerController.Instance.Damageable
+        if (!IsStunned)
         {
-            ui.SetActive(true);
+            Move();
+            if (Vector3.Distance(player.position, transform.position) <= 1.5f)
+            {
+                Attack();
+            }
         }
-        else
+        if (HP <= 0)
         {
-            ui.SetActive(false);
+            Alive = false;
+            StartCoroutine(ZombieDeath());
         }
+    }
 
-        if (alive)
+    private void Move()
+    {
+        // Move towards the player
+        Vector3 directionToPlayer = player.position - transform.position;
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, Speed * Time.deltaTime);
+        transform.position = newPosition;
+
+        // Rotate to face the player
+        if (directionToPlayer != Vector3.zero)
         {
-            if (PlayerController.Instance.Damageable == false && isStunned == false)
-            {
-                zombieAnimator.speed = Speed / BaseSpeed;
-                // Move towards the player
-                Vector3 directionToPlayer = player.position - transform.position;
-                Vector3 newPosition = Vector3.MoveTowards(transform.position, player.position, Speed * Time.deltaTime);
-                transform.position = newPosition;
-
-                // Rotate to face the player
-                if (directionToPlayer != Vector3.zero)
-                {
-                    Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, RotationSpeed * Time.deltaTime);
-                }
-            }
-
-            else
-            {
-                zombieAnimator.speed = 0f;
-            }
-
-            if (hp <= 0)
-            {
-                alive = false;
-                StartCoroutine(ZombieDeath());
-            }
+            Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, RotationSpeed * Time.deltaTime);
         }
     }
 
@@ -112,8 +115,8 @@ public class EnemyController : MonoBehaviour
         enemyCollider.enabled = false;
 
         //Add Money
-        StatsManager.Instance.AddMoney(classValue);
-        StatsManager.Instance.AddMultiplier(classMultiplier);
+        StatsManager.Instance.AddMoney(ClassValue);
+        StatsManager.Instance.AddMultiplier(ClassMultiplier);
 
         //Disables HealthBar
         ui.SetActive(false);
@@ -139,12 +142,16 @@ public class EnemyController : MonoBehaviour
     {
         if (isFromLight)
         {
-            if (hp - damage <= 0)
+            if (HP - damage <= 0)
             {
                 return;
             }
         }
 
-        hp -= damage;
+        HP -= damage;
+    }
+
+    protected virtual void Attack()
+    {
     }
 }

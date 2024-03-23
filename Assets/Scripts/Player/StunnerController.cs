@@ -17,7 +17,7 @@ public class StunnerController : PlayerController
     
         foreach (var enemy in _enemiesInRange)
         {
-            enemy.isStunned = true;
+            enemy.IsStunned = true;
         }
     }
 }

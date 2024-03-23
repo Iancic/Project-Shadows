@@ -31,7 +31,7 @@ public class Flashlight : MonoBehaviour
         Cone.OnEnemyExit += (e) =>
         {
             // Reset the values to defaults
-            e.isStunned = false;
+            e.IsStunned = false;
             e.Speed = e.BaseSpeed;
             _enemiesInCone.Remove(e);
             e.Seen = false;
@@ -66,7 +66,7 @@ public class Flashlight : MonoBehaviour
             foreach (var enemy in _enemiesInCone)
             {
                 // Reset the values to defaults
-                enemy.isStunned = false;
+                enemy.IsStunned = false;
                 enemy.Speed = enemy.BaseSpeed;
                 enemy.Seen = false;
             }
