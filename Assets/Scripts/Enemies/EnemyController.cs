@@ -17,12 +17,12 @@ public class EnemyController : MonoBehaviour
 
     [Space(10)] [Header("Enemy Stats")]
     //Movement Speed
-    public float BaseSpeed = 4.5f;
+    public float BaseSpeed;
 
-    public float RotationSpeed = 8f;
-    public float AttackSpeed = 1f;
-    public float AttackDamage = 40f;
-    public float MaxHP = 100f;
+    public float RotationSpeed;
+    public float AttackSpeed;
+    public float AttackDamage;
+    public float MaxHP;
 
     //Zombie Values (Class value means the value of the enemy, multiplier is the value of the multipler at death)
     public int ClassValue = 100;
