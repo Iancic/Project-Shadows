@@ -17,7 +17,6 @@ public class DetectionCone : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.gameObject.GetComponent<EnemyController>()) return;
-        
         OnEnemyExit?.Invoke(other.GetComponent<EnemyController>());
     }
 }
