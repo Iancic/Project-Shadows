@@ -22,6 +22,8 @@ TagManager:
   - HealthDispenser
   - BatteryDispenser
   - Barrel
+  - Card
+  - Shotgun
   layers:
   - Default
   - TransparentFX
