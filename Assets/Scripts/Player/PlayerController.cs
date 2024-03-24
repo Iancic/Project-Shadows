@@ -11,10 +11,13 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     public AudioSource footSteps;
     public Flashlight Flashlight;
+    public Mop Mop;
+    public GunController Gun;
 
     //Movement Speed
     private float baseSpeed = 5f;
     private float speed = 0f;
+    private int _currentHotbarItem = 0;
 
     //Player Logic
     [HideInInspector] public int HP = 100;
@@ -60,6 +63,25 @@ public class PlayerController : MonoBehaviour
                 speed = baseSpeed + f;
             }
         };
+        
+        ToggleItem(0);
+    }
+
+    private void ToggleItem(int item)
+    {
+        _currentHotbarItem = item;
+        if (item == 0)
+        {
+            Gun.gameObject.SetActive(true);
+            Flashlight.gameObject.SetActive(true);
+            Mop.gameObject.SetActive(false);
+        }
+        else
+        {
+            Gun.gameObject.SetActive(false);
+            Flashlight.gameObject.SetActive(false);
+            Mop.gameObject.SetActive(true);
+        }
     }
 
     protected virtual void Update()
@@ -67,6 +89,17 @@ public class PlayerController : MonoBehaviour
         if (HP <= 0)
         {
             // SceneManager.LoadScene("RestartMenu");
+        }
+        
+        // 1 is always a gun
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ToggleItem(0);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ToggleItem(1);
         }
 
         //Movement
