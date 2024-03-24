@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private float speed = 0f;
 
     //Player Logic
-    [HideInInspector] public int HP = 100;
+    [HideInInspector] public int HP;
+    [HideInInspector] public int MaxHP = 100;
     [HideInInspector] public bool Damageable;
 
     //XP
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Start()
     {
+        HP = MaxHP;
         Flashlight = GetComponentInChildren<Flashlight>();
         speed = baseSpeed + UpgradesManager.Instance.GetValue(UpgradeType.MovementSpeed);
         playerCamera = Camera.main;
