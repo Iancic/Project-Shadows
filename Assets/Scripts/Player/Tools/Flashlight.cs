@@ -9,8 +9,7 @@ public class Flashlight : MonoBehaviour
     public DetectionCone Cone;
 
     public bool isOn = false;
-
-
+    
     [HideInInspector] public float batteryMax = 60.00f, batteryCurrent = 20.00f;
     public int Range = 10;
 
