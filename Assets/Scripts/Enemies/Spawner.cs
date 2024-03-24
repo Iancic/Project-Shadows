@@ -37,49 +37,52 @@ public class Spawner : MonoBehaviour
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        if (Generator.Instance.canSpawn == true)
+        if (IntroManagement.Instance.GameStarted == true)
         {
-            if (wave <= 3)
+            if (Generator.Instance.canSpawn == true)
             {
-                if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 5)
+                if (wave <= 3)
                 {
-                    Spawn(walkerPrefab);
-                    timer = spawnInterval1;
+                    if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 5)
+                    {
+                        Spawn(walkerPrefab);
+                        timer = spawnInterval1;
+                    }
+                    else
+                    {
+                        timer -= Time.deltaTime;
+                    }
                 }
-                else
-                {
-                    timer -= Time.deltaTime;
-                }
-            }
 
-            else if (wave <= 5)
-            {
-                if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 8)
+                else if (wave <= 5)
                 {
-                    Spawn(walkerPrefab);
-                    Spawn(crawlerPrefab);
-                    timer = spawnInterval2;
+                    if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 8)
+                    {
+                        Spawn(walkerPrefab);
+                        Spawn(crawlerPrefab);
+                        timer = spawnInterval2;
+                    }
+                    else
+                    {
+                        timer -= Time.deltaTime;
+                    }
                 }
-                else
-                {
-                    timer -= Time.deltaTime;
-                }
-            }
 
-            else if (wave <= 10)
-            {
-                if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 12)
+                else if (wave <= 10)
                 {
-                    Spawn(walkerPrefab);
-                    Spawn(crawlerPrefab);
-                    timer = spawnInterval3;
+                    if (timer <= 0 && GameObject.FindGameObjectsWithTag("Zombie").Length < 12)
+                    {
+                        Spawn(walkerPrefab);
+                        Spawn(crawlerPrefab);
+                        timer = spawnInterval3;
+                    }
+                    else
+                    {
+                        timer -= Time.deltaTime;
+                    }
                 }
-                else
-                {
-                    timer -= Time.deltaTime;
-                }
-            }
 
+            }
         }
 
     }

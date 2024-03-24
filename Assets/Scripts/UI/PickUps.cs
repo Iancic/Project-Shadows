@@ -75,7 +75,35 @@ public class PickUps : MonoBehaviour
                 SceneManager.LoadScene("MainRoom");
 
             if (gameObject.CompareTag("Computer") && distance < 6.5f)
-                UIManager.Instance.DisplayShop(true);
+            {
+                if (IntroManagement.Instance.GameStarted == false)
+                {
+                    if (IntroManagement.Instance.CardAquired == true)
+                    {
+                        IntroManagement.Instance.ShowLogs();
+                        
+                    }
+                }
+                else if (IntroManagement.Instance.GameStarted == true)
+                {
+                    UIManager.Instance.DisplayShop(true);
+                }
+            }
+
+            if (gameObject.CompareTag("Shotgun") && distance < 3.5f)
+            {
+                pickupSound.Play();
+                IntroManagement.Instance.PickGun();
+                Destroy(this.gameObject);
+            }
+
+
+            if (gameObject.CompareTag("Card") && distance < 3.5f)
+            {
+                pickupSound.Play();
+                IntroManagement.Instance.PickCard();
+                Destroy(this.gameObject);
+            }
 
         }
     }
