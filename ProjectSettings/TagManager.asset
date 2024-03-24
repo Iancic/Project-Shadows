@@ -24,6 +24,7 @@ TagManager:
   - Barrel
   - Card
   - Shotgun
+  - Mop
   layers:
   - Default
   - TransparentFX
