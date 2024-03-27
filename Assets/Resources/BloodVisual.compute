@@ -1,0 +1,38 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+#pragma kernel GenMap
+
+RWTexture2D<float4> Result;
+Texture2D<float4> DirtMaskTemplate;
+
+int DirtMaskTemplateWidth = 0;
+int DirtMaskTemplateHeight = 0;
+float2 hitUV = float2(0, 0);
+
+float dist(float2 a, float2 b)
+{
+    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+}
+
+float2 remapUVs(float2 uv, float2 size)
+{
+    return float2(uv.x / size.x, uv.y / size.y);
+}
+
+[numthreads(8,8,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    // float2 currentUV = float2(id.x / 1024.0, id.y / 1024.0);
+    float2 currentUV = float2(id.x / (float)DirtMaskTemplateWidth, id.y / (float)DirtMaskTemplateHeight);
+    float distance = dist(currentUV, remapUVs(hitUV, float2(DirtMaskTemplateWidth, DirtMaskTemplateHeight)));
+    if (distance < 0.2) // 0.2 is the brush size
+    {
+        Result[id.xy] = float4(0, 0, 0, 0);
+    }
+}
+
+[numthreads(8,8,1)]
+void GenMap(uint3 id : SV_DispatchThreadID)
+{
+    Result[id.xy] = DirtMaskTemplate[id.xy];
+}
